@@ -7,7 +7,7 @@ format:
     preview-links: auto
     logo: figs/hsph.png
     # margin: 0.04
-    footer: "TB Grupito Meeting"
+    footer: "EHR/Missing data Working Meeting"
     smaller: false
     incremental: false
     fig-width: 6
@@ -383,6 +383,25 @@ No group of patients should exist only in one trial and never the other.
 If a certain kind of patient (say very sick patients) can only ever appear in trial 1 and never in trial 2, then we cannot use trial 2 to learn about that type of patient.
 :::
 
+## Identification Result (Statistical Estimand)
+
+::: {style="font-size: 85%;"}
+Identification of the target casual parameter of interest $\psi:=\mathbb{E}[Y(a) - Y(b) \mid \Omega],$
+\begin{align}
+\psi(a, b) 
+    &= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=1) \\ &\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=2) \nonumber \\ &\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=1)  \\ &\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=2).
+\end{align}
+or equivalently, $\psi$ can be identified as the following IPW form
+\begin{align}\label{psiid2}
+\psi(a, b) 
+&= 
+\mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right]
++ \mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y\, \delta(L)}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right] \nonumber \\
+&\quad - \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y\, \delta^{-1}(L)}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right]- \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right],
+\end{align}
+where $\delta(L):=
+\frac{\mathbb{P}_{\Omega}(S = 2 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)} = \frac{1 - \mathbb{P}_{\Omega}(S = 1 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)}.$
+:::
 
 ## Identification Result (Statistical Estimand)
 
@@ -407,7 +426,7 @@ Let's focus on the first two terms, and the last two terms follow the same patte
 :::
 
 
-## Identification Result (G-computation)
+## G-computation
 ::: {style="font-size: 85%;"}
 The first term is the standard G-computation result of the trial 1,
 
@@ -429,7 +448,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 \end{align}
 :::
 
-## Identification Result (G-computation)
+## G-computation
 ::: {style="font-size: 85%;"}
 $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 
@@ -450,7 +469,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 :::
 
 
-## Identification Result (G-computation)
+## G-computation
 ::: {style="font-size: 85%;"}
 The second term uses the **transportability** of the trial 2 for the trial 1,
 
@@ -472,7 +491,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 \end{align}
 :::
 
-## Identification Result (G-computation)
+## G-computation
 ::: {style="font-size: 85%;"}
 $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}]$ is 
 
@@ -492,29 +511,78 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 - Average those predictions across all ${\color{#6b72ff}{\textbf{Trial 1}}}$ patients.
 :::
 
-## Estimation 
+## Estimation
 
 ::: {style="font-size: 85%;"}
-We consider three classes of estimators for the Direct contrast: 
+We implement the Direct Method using three estimation method (1) **g-computation** (2) **IPW** and (3) **one-step/doubly-robust estimation**:
 
-1. **G-computation**; 
-2. **Inverse Probability Weighting (IPW)**; 
-3. **Causal machine learning estimator**.
+**Doubly-Robust**: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.
 
-The first two approaches rely heavily on correct specification of either the outcome model (g-computation) or the inclusion&treatment model (IPW). 
+1. **Outcome Model**: Predicts what the outcome    would be under each treatment, given patient characteristics, $\mu_s(z, L) = \E(Y\mid L,A=z,S=s)$ for any $(s, z) \in \{(1, a), (2, b)\}.$
+
+2. **Inclusion and Treatment Model**: The trial inclusion (i.e., $g(L) := \mathbb{P}_{\Omega}(S=1\mid L)$) and treatment mechanism (i.e., $\mathbb{P}_{\Omega}(A=z\mid L,S=s)$) are consistently estimated.
 :::
 
 . . .
 
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+Randomized trials simplify nuisance estimation: treatment mechanism is known.
+Only
+<span style="background-color:#FFF2CC">inclusion model $g(L)$ and outcome model $\mu_s(a,L)$</span>
+need to be estimated well.
+:::
+
+
+## Estimation
+
 ::: {style="font-size: 85%;"}
-To address their lack of robustness, we focus on a **causal machine learning estimator** in the main analysis. This estimator:
+
+Statistical properities of one-step estimator, such as consistency and asymptotic normality, are established under standard regularity conditions.
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+Theroem (informal) The one-step estimator $\hat{\psi}_{\text{1step}}(a,b)$ satisfies: (1) Consistency.  $\hat{\psi}_{\text{1step}}(a,b) \xrightarrow{\mathbb{P}_{\Omega}} \psi(a, b).$ (2) Asymptotic linearity and normality: we have the expansion
+$$       \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
+        = \G_n\!\left(\varphi\big[\mu_s(z, L),\pi_s(z, L),g(L)\big]\right) 
+        + \mathcal{R} + o_{\mathbb{P}_{\Omega}}(1),$$
+where $\G_n$ denotes the empirical process, and the remainder term satisfies
+$$        \mathcal{R} 
+        \leq \sqrt{n}\,O_{\mathbb{P}_{\Omega}}\Big(
+(\Delta\pi_1 + \Delta g)\,\Delta\mu_1
++ (\Delta\pi_2 + \Delta g)\,\Delta\mu_2
+\Big),$$
+with the $L^2(\mathbb{P}_{\Omega})$ errors defined by $$\Delta\pi_s := \|\pi_s - \hat{\pi}_s \|_2,\quad \Delta\mu_s := \|\mu_s - \hat{\mu}_s\|_2,\quad \Delta g := \|g - \hat{g}\|_2.$$
+:::
+
+
+## Estimation 
+::: {style="font-size: 85%;"}
+We focus on a **causal machine learning estimator** in the main analysis. 
 
 * Can flexibly incorporate modern machine learning methods for nuisance estimation.
 * **Double Robustness**: remains consistent if **either** the outcome model **or** the *inclusion model* is correctly specified.
 * Provides **valid** large-sample inference under standard regularity conditions.
 :::
 
+. . .
 
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+Rate Condition for Inference: each nuisance estimator
+converges in $L^2(\mathbb{P}_{\Omega})$ at a rate faster than $n^{-1/4}$, 
+$$  \Delta g = o_{\mathbb{P}_{\Omega}}(n^{-1/4}),\quad
+  \Delta\pi_s = o_{\mathbb{P}_{\Omega}}(n^{-1/4}),\quad
+  \Delta\mu_s = o_{\mathbb{P}_{\Omega}}(n^{-1/4}).$$
+
+Then:
+$\mathcal{R} = o_{\mathbb{P}_{\Omega}}(1),$ and the one-step estimator is asymptotically linear 
+$$        \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
+        = \G_n\big\{\varphi(O_i;\eta_0)\big\} + o_{\mathbb{P}_{\Omega}}(1)
+        \xrightarrow{d} \mathcal{N}\big(0,\ \mathbb{V}\{\varphi(O;\eta_0)\}\big),$$
+where $\eta_0 = (\mu_s,\pi_s,g)$ denotes the collection of true nuisance functions.
+
+:::
 <!-- ## Summary: Direct Method
 
 ::: {style="font-size: 85%;"}
