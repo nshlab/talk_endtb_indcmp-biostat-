@@ -7,7 +7,7 @@ format:
     preview-links: auto
     logo: figs/hsph.png
     # margin: 0.04
-    footer: "EHR/Missing data Working Meeting"
+    footer: "EHR/Missing data Working Group Meeting"
     smaller: false
     incremental: false
     fig-width: 6
