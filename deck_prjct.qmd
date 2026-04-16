@@ -438,15 +438,6 @@ where subgroup-specific conditional means, i.e., $\color{#6b72ff}{\mathbb{E}(Y \
 
 :::
 
-. . .
-
-::: {style="font-size: 85%;"}
-$\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is a sum over $l$ (in $S=1$) of 
-
-\begin{align}
-{\color{#6b72ff}{\mathbb{E}(Y \mid A = a, L = l, S =1)} * \mathbb{P}(L = l \mid S=1)}.
-\end{align}
-:::
 
 ## G-computation
 ::: {style="font-size: 85%;"}
@@ -592,28 +583,95 @@ The Direct Method lets us “directly compare” treatments that were never test
 ::: -->
 
 
-## Method (4): Indirect Method
+## Method (4): Indirect Method – decomposition for adjusting differing standard care
 
 ::: {style="font-size: 85%;"}
-
 Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem into **two parts**:
 
-1. **The difference in treatment effects**  
-   How much better is 6BPaLM vs. *its* standard care, compared to how much better a 9-month regimen is vs. *its* standard care?
+1. **The difference in treatment effects**  ($\theta$):
+   how much better is 6BPaLM vs. *its* standard care, compared to how much better a 9-month regimen is vs. *its* standard care?
 
-2. **The difference in standard care**  
-   How different are the two standard care treatments themselves?
+2. **The difference in standard care**  ($\phi$):
+   how different are the two standard care treatments themselves?
 :::
 
 . . .
 
 ::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"}
-**Simple formula**:  Total difference = (Treatment effect difference) + (Standard care difference), i.e., 
-$\psi(a, b)= \theta + \phi,$
-where 
-(1) $$\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega],$$ difference in treatment effects,
-and (2) $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the two standard care arms.
+**Simple formula**:  
+Total difference = (Treatment effect difference) + (Standard care difference), i.e., 
+$$\psi(a, b)= \theta + \phi $$ 
+where $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$, difference in treatment effects,
+and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the two standard care arms.
 :::
+
+## The Two Components: A Closer Look
+::: {style="font-size: 85%;"}
+
+- **Component 1: Treatment Effect Difference ($\theta$)**
+  - In **TB-PRACTECAL**: 6BPaLM v.s. Standard Care 1
+  - In **endTB**: 9-month regimen v.s. Standard Care 2
+  - Captures how much better each investigational regimen is compared to its own control, i.e., $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$
+
+ - $(\text{Effect of 6BPaLM vs. SC1}) - (\text{Effect of 9-month regimen vs. SC2})$
+:::
+
+. . .
+
+::: {style="font-size: 85%;"}
+- **Component 2: Standard Care Difference ($\phi$)**
+  - Direct comparison: Standard Care 1 vs. Standard Care 2
+  - Captures differences in background treatment across trials
+
+- $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]$
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;"}
+**Fact of Component 2**:  
+We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]$$ coincides with the pairwise contrast $\phi = \psi(c_1, c_2)$. 
+:::
+
+## Identification Assumptions (for $\theta$ and $\phi$) {.appendix}
+::: {style="font-size: 85%;"}
+- **(A1) Consistency**  
+
+- **(A2) Exchangeability within each trial**  
+  - Trial 1: $Y(a), Y(c_1)\perp\!\!\perp A \mid L,S=1$  
+  - Trial 2: $Y(b), Y(c_2)\perp\!\!\perp A \mid L,S=2$
+
+- **(A3) Positivity of treatment within trial**  
+
+  Everyone in each trial has a non-zero probability to receive every treatment arm.
+
+- **(A4) Transportability** : $Y(a),Y(c_1), Y(b), Y(c_2)\perp\!\!\perp S \mid L$
+
+- **(A5) Positivity of trial inclusion**  
+
+  For any covariate profile $L$, a subject must have a non-zeor probability to be in both trials.
+:::
+
+
+
+
+## Summary: Indirect Method 
+
+::: {style="font-size: 85%;"}
+
+The Indirect Method breaks the comparison into "how much better the treatments are than their respective standard cares" plus "how different those standard cares are from each other."
+
+**The Key Insight**:  
+By separating treatment effects from background care differences, we get a clearer picture of what is really driving any observed differences between 6BPaLM and 9-month regimens.
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+**For Our Study**:  
+This method is particularly valuable because TB-PRACTECAL and endTB had different standard care regimens, something we can't ignore when comparing their results.
+:::
+
 
 
 ## Strengths & Limitations
