@@ -505,23 +505,21 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 ## Estimation
 
 ::: {style="font-size: 85%;"}
-We implement the Direct Method using three estimation method (1) **g-computation** (2) **IPW** and (3) **one-step/doubly-robust estimation**:
-
-**Doubly-Robust**: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.
-
-1. **Outcome Model**: Predicts what the outcome    would be under each treatment, given patient characteristics, $\mu_s(z, L) = \E(Y\mid L,A=z,S=s)$ for any $(s, z) \in \{(1, a), (2, b)\}.$
-
-2. **Inclusion and Treatment Model**: The trial inclusion (i.e., $g(L) := \mathbb{P}_{\Omega}(S=1\mid L)$) and treatment mechanism (i.e., $\mathbb{P}_{\Omega}(A=z\mid L,S=s)$) are consistently estimated.
+We implement the Direct Method using three estimation method (1) **g-computation** (2) **IPW** and (3) **one-step/doubly-robust estimation**, where the one-step estimator is
+\begin{align}
+\hat{\psi}_{\text{1step}}(a, b) = \mathbb{P}_{\Omega, n}\{\varphi[\hat{\mu}_s(z, L), \hat{\pi}_s(z, L), \hat{g}(L)]\},
+\end{align}
+$$\begin{align*}
+    \varphi({\hat{\mu}}_s, \hat{\pi}_{s}, \hat{g}):
+        & = \frac{\mathbb{I}(A = a, S = 1) }{\hat{\pi}_{1}(a, L)}\left[Y - \hat{\mu}_1(a,  L) \right] + \mathbb{I}(S=1)\hat{\mu}_1(a, L) \\
+        &\ \ \ \ \ - \left[ \frac{\mathbb{I}(A = b, S = 2)}{\hat{\pi}_2(b, L)}\left[Y - \hat{\mu}_2(b,  L) \right] + \mathbb{I}(S=2)\hat{\mu}_2(b, L)  \right]
+        \\
+        &\ \ + \frac{\mathbb{I}(A = a, S = 1) [1 - \hat{g}(L)] }{\hat{\pi}_1(a, L)\hat{g}(L)}\left[Y - \hat{\mu}_1(a,  L) \right]  + \mathbb{I}(S=2)\hat{\mu}_1(a, L) 
+       \\
+        &\ \ \ \ \  - \left[\frac{\mathbb{I}(A = b, S = 2) \hat{g}(L) }{\hat{\pi}_2(b, L) [1 - \hat{g}(L)] }\left[Y - \hat{\mu}_2(b,  L) \right] + \mathbb{I}(S=1)\hat{\mu}_2(b, L) \right],
+\end{align*}$$ $\hat{g}(L):=\hat{\mathbb{P}}_{\Omega}(S = 1 \mid L),$ and $\hat{\delta}(L) = \frac{1 - \hat{g}(L)}{\hat{g}(L)}$.
 :::
 
-. . .
-
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
-Randomized trials simplify nuisance estimation: treatment mechanism is known.
-Only
-<span style="background-color:#FFF2CC">inclusion model $g(L)$ and outcome model $\mu_s(a,L)$</span>
-need to be estimated well.
-:::
 
 
 ## Estimation
@@ -534,8 +532,8 @@ Statistical properities of one-step estimator, such as consistency and asymptoti
 . . .
 
 ::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
-Theroem (informal) The one-step estimator $\hat{\psi}_{\text{1step}}(a,b)$ satisfies: (1) Consistency.  $\hat{\psi}_{\text{1step}}(a,b) \xrightarrow{\mathbb{P}_{\Omega}} \psi(a, b).$ (2) Asymptotic linearity and normality: we have the expansion
-$$       \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
+Theroem (informal) The one-step estimator $\hat{\psi}_{\text{1step}}(a,b)$ satisfies: (1) Consistency.  $\hat{\psi}_{\text{1step}}(a,b) \xrightarrow{\mathbb{P}_{\Omega}} \psi(a, b).$ (2) Asymptotic linearity and normality: 
+$$ \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
         = \G_n\!\left(\varphi\big[\mu_s(z, L),\pi_s(z, L),g(L)\big]\right) 
         + \mathcal{R} + o_{\mathbb{P}_{\Omega}}(1),$$
 where $\G_n$ denotes the empirical process, and the remainder term satisfies
@@ -553,7 +551,6 @@ with the $L^2(\mathbb{P}_{\Omega})$ errors defined by $$\Delta\pi_s := \|\pi_s -
 We focus on a **causal machine learning estimator** in the main analysis. 
 
 * Can flexibly incorporate modern machine learning methods for nuisance estimation.
-* **Double Robustness**: remains consistent if **either** the outcome model **or** the *inclusion model* is correctly specified.
 * Provides **valid** large-sample inference under standard regularity conditions.
 :::
 
@@ -582,11 +579,32 @@ The Direct Method lets us “directly compare” treatments that were never test
 **For Our Research**: This is **a straightforward and robust approach** to answer whether 6BPaLM is preferable to 9-month regimens for people living with HIV, provided the trial populations are sufficiently similar.
 ::: -->
 
+## Estimation
+
+::: {style="font-size: 85%;"}
+**One-step estimation**:
+
+**Doubly-Robust**: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.
+
+1. **Outcome Model**: Predicts what the outcome    would be under each treatment, given patient characteristics, $\mu_s(z, L) = \E(Y\mid L,A=z,S=s)$ for any $(s, z) \in \{(1, a), (2, b)\}.$
+
+2. **Inclusion and Treatment Model**: The trial inclusion (i.e., $g(L) := \mathbb{P}_{\Omega}(S=1\mid L)$) and treatment mechanism (i.e., $\mathbb{P}_{\Omega}(A=z\mid L,S=s)$) are consistently estimated.
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+Randomized trials simplify nuisance estimation: treatment mechanism is known.
+Only
+<span style="background-color:#FFF2CC">inclusion model $g(L)$ and outcome model $\mu_s(a,L)$</span>
+need to be estimated well.
+:::
+
 
 ## Method (4): Indirect Method – decomposition for adjusting differing standard care
 
 ::: {style="font-size: 85%;"}
-Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem into **two parts**:
+Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem into:
 
 1. **The difference in treatment effects**  ($\theta$):
    how much better is 6BPaLM vs. *its* standard care, compared to how much better a 9-month regimen is vs. *its* standard care?
@@ -597,8 +615,7 @@ Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem 
 
 . . .
 
-::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"}
-**Simple formula**:  
+::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"} 
 Total difference = (Treatment effect difference) + (Standard care difference), i.e., 
 $$\psi(a, b)= \theta + \phi $$ 
 where $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$, difference in treatment effects,
@@ -609,8 +626,6 @@ and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the tw
 ::: {style="font-size: 85%;"}
 
 - **Component 1: Treatment Effect Difference ($\theta$)**
-  - In **TB-PRACTECAL**: 6BPaLM v.s. Standard Care 1
-  - In **endTB**: 9-month regimen v.s. Standard Care 2
   - Captures how much better each investigational regimen is compared to its own control, i.e., $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$
 
  - $(\text{Effect of 6BPaLM vs. SC1}) - (\text{Effect of 9-month regimen vs. SC2})$
@@ -620,16 +635,12 @@ and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the tw
 
 ::: {style="font-size: 85%;"}
 - **Component 2: Standard Care Difference ($\phi$)**
-  - Direct comparison: Standard Care 1 vs. Standard Care 2
-  - Captures differences in background treatment across trials
-
-- $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]$
+  - Direct comparison: Standard Care 1 vs. Standard Care 2, capturing differences in background treatment across trials
 :::
 
 . . .
 
 ::: {style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;"}
-**Fact of Component 2**:  
 We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]$$ coincides with the pairwise contrast $\phi = \psi(c_1, c_2)$. 
 :::
 
