@@ -644,7 +644,7 @@ and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the tw
 We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]$$ coincides with the pairwise contrast $\phi = \psi(c_1, c_2)$. 
 :::
 
-## Identification Assumptions (for $\theta$ and $\phi$) {.appendix}
+## Identification Assumptions (for $\theta$ and $\phi$) 
 ::: {style="font-size: 85%;"}
 - **(A1) Consistency**  
 
@@ -656,11 +656,12 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 
   Everyone in each trial has a non-zero probability to receive every treatment arm.
 
-- **(A4) Transportability** : $Y(a),Y(c_1), Y(b), Y(c_2)\perp\!\!\perp S \mid L$
+- **(A4) Transportability** : 
+  - for $\phi,$ $Y(c_1),Y(c_2)\perp\!\!\perp S\mid V$; where $V=\text{country};$ (standard-of-care is typically defined at the national level, often guided by, e.g., WHO, and implemented through country-specific clinical guidelines.)
+  - for $\theta,$ $Y(a),Y(b)\perp\!\!\perp S\mid L$ 
 
 - **(A5) Positivity of trial inclusion**  
-
-  For any covariate profile $L$, a subject must have a non-zeor probability to be in both trials.
+  - For any covariate profile $L$, a subject must have a non-zeor probability to be in both trials.
 :::
 
 
