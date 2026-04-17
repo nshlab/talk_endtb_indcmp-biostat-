@@ -1,5 +1,5 @@
 ---
-title: "Cross-trial evaluation of endTB regimens and 6BPaLM via data fusion"
+title: "Cross-Trial Causal Comparison of Treatment Regimens Without a Common Comparator: A Case Study of MDR/RR-TB and HIV"
 format:
   clean-revealjs:
     self-contained: false
