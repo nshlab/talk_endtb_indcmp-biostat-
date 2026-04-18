@@ -617,7 +617,7 @@ Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem 
 
 ::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"} 
 Total difference = (Treatment effect difference) + (Standard care difference), i.e., 
-$$\psi(a, b)= \theta + \phi $$ 
+$$\psi(a, b):= \mathbb{E}[Y(a)-Y(b)\mid\Omega] = \theta + \phi $$ 
 where $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$, difference in treatment effects,
 and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the two standard care arms.
 :::
@@ -657,7 +657,7 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
   Everyone in each trial has a non-zero probability to receive every treatment arm.
 
 - **(A4) Transportability** : 
-  - for $\phi,$ $Y(c_1),Y(c_2)\perp\!\!\perp S\mid V$; where $V=\text{country};$ (standard-of-care is typically defined at the national level, often guided by, e.g., WHO, and implemented through country-specific clinical guidelines.)
+  - for $\phi,$ $Y(c_1),Y(c_2)\perp\!\!\perp S\mid V$; where $V=\text{country};$ (standard-of-care is typically defined at the national level, often guided by WHO, and implemented through country-specific clinical guidelines.)
   - for $\theta,$ $Y(a),Y(b)\perp\!\!\perp S\mid L$ 
 
 - **(A5) Positivity of trial inclusion**  
@@ -665,37 +665,16 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 :::
 
 
-
-
-## Summary: Indirect Method 
-
-::: {style="font-size: 85%;"}
-
-The Indirect Method breaks the comparison into "how much better the treatments are than their respective standard cares" plus "how different those standard cares are from each other."
-
-**The Key Insight**:  
-By separating treatment effects from background care differences, we get a clearer picture of what is really driving any observed differences between 6BPaLM and 9-month regimens.
-:::
-
-. . .
-
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
-**For Our Study**:  
-This method is particularly valuable because TB-PRACTECAL and endTB had different standard care regimens, something we can't ignore when comparing their results.
-:::
-
-
-
 ## Strengths & Limitations
 
 ::: {style="font-size: 85%;"}
 
-| Method                      | Uses randomization | Uses all arms data| Intuitive | Statistically efficient | More Assumption | 
-| --------------------------- | :----------------: | :-----------: | :---------------------: | :-----------: | :---------------------: | 
-| **1: Traditional Approach**      |          ✔          |       ✔        |            ✔            |       △       |            Yes            |
-| **2: Trial Emulation**      |          ✖         |       ✖       |            ✔            |       △       |            Yes            |
-| **3: Pooled-IPD Direct**   |          ✔         |       ✔       |            ✔            |       ✔       |            Yes            |
-| **4: Pooled-IPD Indirect** |          ✔         |       ✔       |            △            |       ✔       |            Yes            |
+| Method                      | Uses randomization | Uses all arms data| Statistically efficient | More Assumption | 
+| --------------------------- | :----------------: | :-----------: | :-----------: | :---------------------: | 
+| **1: Traditional Approach**      |          ✔          |       ✔        |       △       |            Yes            |
+| **2: Trial Emulation**      |          ✖         |       ✖       |       △       |            Yes            |
+| **3: Pooled-IPD Direct**   |          ✔         |       ✔       |       ✔       |            Yes            |
+| **4: Pooled-IPD Indirect** |          ✔         |       ✔       |       ✔       |            Yes            |
 :::
 
 ::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
@@ -708,7 +687,7 @@ This method is particularly valuable because TB-PRACTECAL and endTB had differen
 **Additional Targeting Conditions**
 
 * **1 (Traditional):** requires a common control and equal contrasts across trials
-* **2 (Trial Emulation):** exchangeability is assumed conditional on measured covariates.
+* **2 (Trial Emulation):** requires equality of treatment effect in $\Omega_{trt}$ and $\Omega_{untrt}$
 * **3 (Direct):** requires transportability of treatment effects given $L$
 
 * **4 (Indirect):** requires transportability of (1) standard care effects (e.g., given country $V$), and (2) treatment-control contrasts (given $L$)
