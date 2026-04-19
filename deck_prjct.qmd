@@ -241,6 +241,101 @@ This directly reflects the common comparator: $\mathbb{E}[Y(c_1) - Y(c_2) \mid \
 :::
 
 
+
+
+## Method 1: Traditional Approach — Estimand
+
+::: {style="font-size: 85%;"}
+**Estimand**: Compare trial-specific treatment-vs-control contrasts, then take the difference.
+
+Define trial-specific causal effects:
+$$
+\tau_a := \mathbb{E}[Y(a) - Y(c_1) \mid S=1], \qquad \tau_b := \mathbb{E}[Y(b) - Y(c_2) \mid S=2]
+$$
+
+The **traditional indirect comparison estimand** is $\tau_a - \tau_b.$
+:::
+
+. . .
+
+::: {style="font-size: 85%;"}
+Recall the target causal estimand is $\psi(a,b) = \mathbb{E}[Y(a)-Y(b)\mid\Omega]$, which decomposes as
+$$
+\psi = \underbrace{\mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]}_{\theta} + \underbrace{\mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]}_{\phi}.
+$$
+
+The traditional method targets $\theta$, not $\psi$ — **unless $\phi = 0$.**
+:::
+
+## Method 1: Identification Assumptions {.smaller}
+
+::: {style="font-size: 83%;"}
+
+| Label | Assumption |
+|-------|-----------|
+| **M1.1** | **Consistency**: $Y = Y(z)\,\mathbf{1}(A=z)$ for all $z\in\{a,b,c_1,c_2\}$ |
+| **M1.2** | **Exchangeability within each trial**: $Y(a),Y(c_1)\perp\!\!\!\perp A\mid S=1$; $Y(b),Y(c_2)\perp\!\!\!\perp A\mid S=2$ |
+| **M1.3** | **Positivity**: $P(A=z\mid S=s)>0$ for each arm $z$ in trial $s$ |
+| **M1.4** | **No trial engagement effects**: $Y(s,z)=Y(z)$ — potential outcomes do not depend on trial membership |
+| **M1.5** | **Harmonized control**: $c_1=c_2=c$, or weakly, $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]=0$ |
+| **M1.6** | **Homogeneity of control-relative effects**: $\mathbb{E}[\delta_a\mid S=1]=\mathbb{E}[\delta_a\mid S=2]$, $\mathbb{E}[\delta_b\mid S=1]=\mathbb{E}[\delta_b\mid S=2]$, where $\delta_t:=Y(t)-Y(c_t)$ |
+
+:::
+
+. . .
+
+::: {style="font-size: 83%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;"}
+**M1.1–M1.4** guarantee identification of each trial-specific ATE by randomization. **M1.5–M1.6** are the strong additional conditions required to recover $\psi$: they are **not directly testable** from the observed two-trial data.
+:::
+
+## Method 1: Identification Theorem and Proof Sketch
+
+::: {style="font-size: 85%;"}
+**Theorem 1.** Under M1.1–M1.4, $\tau_a - \tau_b$ is identified:
+$$
+\tau_a = \mathbb{E}[Y\mid A=a, S=1] - \mathbb{E}[Y\mid A=c_1, S=1],
+$$
+and analogously for $\tau_b$. Under M1.5–M1.6, $\tau_a - \tau_b = \psi(a,b).$
+:::
+
+. . .
+
+::: {style="font-size: 85%;"}
+**Proof sketch.** M1.5 implies $\phi=0$, so $\psi = \theta$. For $\theta$, apply the law of total expectation over $\Omega = \Omega_1\cup\Omega_2$:
+$$
+\theta = \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega] \overset{\text{M1.6}}{=} \tau_a - \tau_b. \qquad\square
+$$
+M1.6 is the critical step: it requires the mean control-relative effect for each active treatment to be **invariant across trial populations** — a strong, scale-dependent restriction with no nonparametric test from the observed data.
+:::
+
+## Method 1: Estimation and Inference
+
+::: {style="font-size: 85%;"}
+Within each trial, $\tau_a$ and $\tau_b$ can be estimated via:
+
+- **IPW**: $\hat{\tau}_a^{\text{IPW}} = \mathbb{P}_{\Omega,n}\!\left[\dfrac{\mathbf{1}(A=a,S=1)}{P(A=a\mid S=1)}Y - \dfrac{\mathbf{1}(A=c_1,S=1)}{P(A=c_1\mid S=1)}Y\right]$
+
+- **G-computation**: $\hat{\tau}_a^{G} = \hat{\mu}_1(a) - \hat{\mu}_1(c_1)$
+
+- **EIF-based (one-step/doubly robust)**: augments IPW with outcome regression; consistent if either nuisance model is correctly specified.
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #f0f8ff; padding: 8px; border-left: 4px solid #4682b4;"}
+Because the two trials are **independent**, asymptotic normality follows directly:
+$$
+\sqrt{n}\bigl[(\hat{\tau}_a - \hat{\tau}_b) - (\tau_a-\tau_b)\bigr] \xrightarrow{d} \mathcal{N}\!\left(0,\,\sigma_a^2 + \sigma_b^2\right).
+$$
+Variance estimation: sandwich estimators or nonparametric bootstrap applied **independently within each trial**.
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;"}
+ **In our setting**: endTB and TB-PRACTECAL use heterogeneous standards of care ($c_1 \neq c_2$), so $\phi \neq 0$ and the traditional estimator generally targets $\theta = \psi - ## \phi$ rather than $\psi$. **Bias is systematic.**
+:::
+
 ## Method 2: Target Trial Emulation Approach
 
 ::: {style="font-size: 85%;"}
@@ -274,6 +369,81 @@ By discarding control arms and comparing treated groups directly, we extract max
 
 - Lower sample size due to discarding control arms.
 :::
+
+
+
+## Method 2: Target Trial Emulation — Setup
+
+::: {style="font-size: 85%;"}
+**Core idea**: Reframe cross-trial evidence synthesis as the **emulation of a hypothetical head-to-head RCT** (Hernán & Robins, 2016). Pool the *treated* arms across trials and analyze the combined dataset as an observational study.
+
+Let $\Omega_{\text{trt}}$ denote the subpopulation of treated participants. The **pooled treated dataset** is
+$$
+\mathcal{O}^{\text{pool}}_{\text{trt}} = \{(Y_i, A_i, L_i, S_i) : A_i \in \{a, b\},\; i \in \Omega_{\text{trt}}\}.
+$$
+
+**Target estimand** in this approach:
+$$
+\tau'_a - \tau'_b, \quad \text{where}\quad \tau'_a := \mathbb{E}[Y(a)\mid\Omega_{\text{trt}}],\quad \tau'_b := \mathbb{E}[Y(b)\mid\Omega_{\text{trt}}].
+$$
+:::
+
+. . .
+
+::: {style="font-size: 85%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;"}
+**Key structural consequence**: Once treated arms are pooled, treatment assignment between $a$ and $b$ is **confounded with trial membership** — within-trial randomization no longer applies. The pooled dataset must be analyzed as an observational study.
+:::
+
+## Method 2: Identification Assumptions {.smaller}
+
+::: {style="font-size: 83%;"}
+
+| Label | Assumption |
+|-------|-----------|
+| **M2.1** | **Consistency** |
+| **M2.2** | **Conditional exchangeability in $\Omega_{\text{trt}}$**: $Y(a),Y(b)\perp\!\!\!\perp A\mid L,\,\Omega_{\text{trt}}$ |
+| **M2.3** | **Positivity in $\Omega_{\text{trt}}$**: $P(A=z\mid L,\,\Omega_{\text{trt}})>0$ for $z\in\{a,b\}$ |
+| **M2.4** | **No trial engagement effects**: $Y(s,z)=Y(z)$ |
+| **M2.5** | **Homogeneity across treatment-uptake subgroups**: $\mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{trt}}]=\mathbb{E}[Y(a)-Y(b)\mid\Omega]$ |
+
+:::
+
+. . .
+
+::: {style="font-size: 83%;"}
+**Theorem 2.** Under M2.1–M2.4, $\tau'_a - \tau'_b$ is identified from $\mathcal{O}^{\text{pool}}_{\text{trt}}$:
+$$
+\tau'_a - \tau'_b = \mathbb{E}[\mathbb{E}(Y\mid A=a, L, \Omega_{\text{trt}})] - \mathbb{E}[\mathbb{E}(Y\mid A=b, L, \Omega_{\text{trt}})].
+$$
+Under M2.4–M2.5, $\tau'_a - \tau'_b = \psi(a,b).$
+:::
+
+## Method 2: Assumptions — Closer Look
+
+::: {style="font-size: 85%;"}
+**M2.2 (Exchangeability)** requires that, conditional on $L$, treatment assignment is independent of potential outcomes within $\Omega_{\text{trt}}$. This is the standard unconfoundedness condition for observational data — **not guaranteed by randomization.**
+:::
+
+. . .
+
+::: {style="font-size: 85%;"}
+**M2.5 (Homogeneity)** requires that the average treatment effect is the same in the treated and untreated subpopulations:
+$$
+\Delta := \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{trt}}] - \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{untrt}}] = \int \tau_{ab}(L)\{f(L\mid\Omega_{\text{trt}}) - f(L\mid\Omega_{\text{untrt}})\}\,dL.
+$$
+Violation arises from **interaction between treatment effect heterogeneity and covariate imbalance** across subpopulations. In-practice, within-trial randomization makes $f(L\mid\Omega_{\text{trt}}) \approx f(L\mid\Omega_{\text{untrt}})$, partially mitigating this.
+:::
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Methods 3 and 4: Direct and Indirect Approaches
