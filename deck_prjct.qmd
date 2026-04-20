@@ -515,6 +515,12 @@ the observed outcome equals the potential outcome under the treatment actually r
 Trial membership does not directly affect the potential outcome beyond its role in treatment assignment. As a result, treatments can be viewed as invariant interventions across trials, enabling meaningful cross-trial comparisons.
 :::
 
+. . .
+
+::: {style="font-size: 75%; background-color: #fff0f0; padding: 8px; border-left: 5px solid #b22222;"}
+This assumption can be violated in the presence of a Hawthorne effect, where individuals modify their behavior simply because they are being observed or monitored, rather than due to the treatment itself.
+:::
+
 ## Assumptions of Method 3
 ::: {style="font-size: 75%;"}
 **Assumption M3.3: Exchangeability (unconfoundedness)**
@@ -868,26 +874,8 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 
 ![](figs/comparison2.png){width=87% fig-align="center" .lightbox}
 
-## Strengths & Limitations
+## Targeting $\psi$ Conditions*
 ::: {style="font-size: 75%;"}
-
-| Method                      | Uses randomization | Uses all arms data| Statistically efficient | More Assumption | 
-| --------------------------- | :----------------: | :-----------: | :-----------: | :---------------------: | 
-| **1: Traditional Approach**      |          ✔          |       ✔        |       △       |            Yes            |
-| **2: Trial Emulation**      |          ✖         |       ✖       |       △       |            Yes            |
-| **3: Pooled-IPD Direct**   |          ✔         |       ✔       |       ✔       |            Yes            |
-| **4: Pooled-IPD Indirect** |          ✔         |       ✔       |       ✔       |            Yes            |
-:::
-
-::: {style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
-✔ = fully satisfied; • △ = partially satisfied; ✖ = not applicable
-:::
-
-. . .
-
-::: {style="font-size: 75%;"}
-**Additional Targeting Conditions**
-
 * **1 (Traditional):** requires a common control and equal contrasts across trials
 * **2 (Trial Emulation):** requires equality of treatment effect in $\Omega_{trt}$ and $\Omega_{untrt}$
 * **3 (Direct):** requires transportability of treatment effects given $L$
