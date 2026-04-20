@@ -874,6 +874,14 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 
 ![](figs/comparison2.png){width=87% fig-align="center" .lightbox}
 
+## References {.smaller footer="false"}
+
+::: {#refs style="font-size: 80%;"}
+:::
+
+# Appendix {.appendix}
+
+
 ## Targeting $\psi$ Conditions*
 ::: {style="font-size: 75%;"}
 * **1 (Traditional):** requires a common control and equal contrasts across trials
@@ -882,14 +890,6 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 
 * **4 (Indirect):** requires transportability of (1) standard care effects (e.g., given country $V$), and (2) treatment-control contrasts (given $L$)
 :::
-
-## References {.smaller footer="false"}
-
-::: {#refs style="font-size: 80%;"}
-:::
-
-# Appendix {.appendix}
-
 
 ## Target Trial Emulation {.appendix}
 ### Design, Eligibility, and Treatment
