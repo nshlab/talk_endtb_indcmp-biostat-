@@ -420,13 +420,13 @@ Under M2.4–M2.5, $\tau'_a - \tau'_b = \psi(a,b).$
 
 ## Method 2: Assumptions — Closer Look
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 65%;"}
 **M2.2 (Exchangeability)** requires that, conditional on $L$, treatment assignment is independent of potential outcomes within $\Omega_{\text{trt}}$. This is the standard unconfoundedness condition for observational data — **not guaranteed by randomization.**
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 65%;"}
 **M2.5 (Homogeneity)** requires that the average treatment effect is the same in the treated and untreated subpopulations:
 $$
 \Delta := \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{trt}}] - \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{untrt}}] = \int \tau_{ab}(L)\{f(L\mid\Omega_{\text{trt}}) - f(L\mid\Omega_{\text{untrt}})\}\,dL.
@@ -452,26 +452,26 @@ Violation arises from **interaction between treatment effect heterogeneity and c
 <!-- What if we could combine data from both trials into one large dataset and then compare the treatments of interests? -->
 
 
-Merge the data from TB-PRACTECAL and endTB, and <span style="background-color:#FFF2CC"> extend inferences from trial participants to a target population (i.e., $\Omega$).<span>
+Merge the data from TB-PRACTECAL and endTB, and <span style="background-color:#FFF2CC"> extend inferences from trial participants to the target population of interest (i.e., $\Omega$).<span>
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 Due to $\Omega = \Omega_{\text{TB-PRACTECAL}} \cup \Omega_{\text{endTB}},$ we  
 
-- (1) use law of total expectation to decompose $\Omega$ into each trial's population;
+- use law of total expectation to decompose $\Omega$ into each trial's population;
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
-- (2) apply **transportability** to answer questions such as: *“What would be the average treatment effect if the endTB participants had received the TB-PRACTECAL intervention?”*
+::: {style="font-size: 75%;"}
+- apply **transportability** to answer questions such as: *“What would be the average treatment effect if the endTB participants had received the TB-PRACTECAL intervention?”*
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 Recall the definitions [@hernan2016; @dahabreh2019extending]:
 
 - **Generalizability:** extension of inferences from the trial to a target population that *coincides, or is a subset of*, the trial-eligible population 
@@ -492,32 +492,39 @@ In contrast to the trial emulation strategy, both the Direct and Indirect method
 
 ## Method 3: Direct Method for $\psi(a, b)$
 
-::: {style="font-size: 85%;"}
-**Key Assumption 1: Consistency**
-If an individual actually receives treatment $a$, then their observed outcome $Y$ is equal to their potential outcome $Y(a)$. This implicitly assumes that there are no multiple versions of the treatment, no interference.
+::: {style="font-size: 75%;"}
+**Assumption M3.1: Consistency**
+the observed outcome equals the potential outcome under the treatment actually received, which requires well-defined interventions and rules out multiple versions of treatment and interference.
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
-**Key Assumption 2: Exchangeability (unconfoundedness)**
+::: {style="font-size: 75%;"}
+**Assumption M3.2: No trial engagement effects:**  $Y(s, z) = Y(z)$ for every treatment $z \in \{a,b\}$ and every trial $s \in \{1,2\}$.
+
+Trial membership does not directly affect the potential outcome beyond its role in treatment assignment. As a result, treatments can be viewed as invariant interventions across trials, enabling meaningful cross-trial comparisons.
+:::
+
+## Assumptions of Method 3
+::: {style="font-size: 75%;"}
+**Assumption M3.3: Exchangeability (unconfoundedness)**
 
 $$Y(a)\perp\!\!\perp A\mid (L, S=1),\ \text{and}\ Y(b)\perp\!\!\perp A\mid (L, S=2)$$
 
-If we do not have within trial randomization, we need to measure all important patient characteristics ($L$) to ensure **treatment assignment is unrelated to what outcomes would have been under different treatments**.
+If we do not have within trial randomization, we need to measure all important patient characteristics ($L$) to ensure **treatment assignment is independent of potential outcomes**.
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 <span style="background-color:#FFF2CC"> Fortunately, this is guaranteed by randomization within each trial, no matter how many covariates we measured, </span> i.e.,
 marginal randomization implies this weaker assumption.
 :::
 
 
-## Key Assumptions of Method 3
+## Assumptions of Method 3
 ::: {style="font-size: 85%;"}
-**Key Assumption 3: Transportability (Conditional exchangeability over inclusion)**: 
+**Assumption M3.4: Transportability (Conditional exchangeability over inclusion)**: 
 $$Y(a),Y(b)\perp\!\!\perp S\mid L$$
 
 What we learn about a treatment in one trial can be applied to patients in the other trial, given measured covariates.
@@ -534,9 +541,9 @@ What we learn about a treatment in one trial can be applied to patients in the o
 Any systematic differences between trials that are not captured in the measured covariates $L$ will break this assumption.
 :::
 
-## Key Assumptions of Method 3
+## Assumptions of Method 3
 ::: {style="font-size: 85%;"}
-**Key Assumption 4: Positivity — Treatment assignment**
+**Assumption M3.5: Positivity — Treatment assignment**
 
 Within each trial, everyone must have a non-zero probability to receive each treatment.
 :::
@@ -544,7 +551,7 @@ Within each trial, everyone must have a non-zero probability to receive each tre
 . . .
 
 ::: {style="font-size: 85%;"}
-**Key Assumption 5: Positivity — Trial participation/inclusion**
+**Assumption M3.6: Positivity — Trial participation/inclusion**
 
 Across trials, everyone must have a non-zero probability to be in either trial. 
 
@@ -555,11 +562,11 @@ If a certain kind of patient (say very sick patients) can only ever appear in tr
 
 ## Identification Result (Statistical Estimand)
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 Identification of the target casual parameter of interest $\psi:=\mathbb{E}[Y(a) - Y(b) \mid \Omega],$
 \begin{align}
-\psi(a, b) 
-    &= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=1) \\ &\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=2) \nonumber \\ &\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=1)  \\ &\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=2).
+\psi(a, b) &:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)} \nonumber \\ &\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)},
 \end{align}
 or equivalently, $\psi$ can be identified as the following IPW form
 \begin{align}\label{psiid2}
@@ -575,7 +582,7 @@ where $\delta(L):=
 
 ## Identification Result (Statistical Estimand)
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 \begin{align}\label{psiid}
 \psi(a, b) &:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
     &= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)} \nonumber \\ &\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)},
@@ -597,7 +604,7 @@ Let's focus on the first two terms, and the last two terms follow the same patte
 
 
 ## G-computation
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 The first term is the standard G-computation result of the trial 1,
 
 \begin{align}
@@ -610,7 +617,7 @@ where subgroup-specific conditional means, i.e., $\color{#6b72ff}{\mathbb{E}(Y \
 
 
 ## G-computation
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 
 \begin{align}
@@ -621,7 +628,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 - Fit a model using ${\color{#6b72ff}{\textbf{Trial 1}}}$ data to predict the outcome $Y$ given treatment $A=a$ and covariates $L$.
 
 - Apply that same model to each patient in ${\color{#6b72ff}{\textbf{Trial 1}}}$ to get their predicted outcome under treatment ${\color{#6b72ff}{a}}$.
@@ -631,7 +638,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]$ is
 
 
 ## G-computation
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 The second term uses the **transportability** of the trial 2 for the trial 1,
 
 \begin{align}
@@ -644,7 +651,7 @@ where subgroup-specific conditional means, i.e., $\color{#FF6B6B}{\mathbb{E}(Y \
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}]$ is a sum over $l$ (in $S=1$) of 
 
 \begin{align}
@@ -653,7 +660,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 :::
 
 ## G-computation
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}]$ is 
 
 \begin{align}
@@ -664,7 +671,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 - Using ${\color{#FF6B6B}{\textbf{Trial 2}}}$ data, fit an outcome model for $Y$ given treatment $A=b$ and covariates $L$.
 
 - Apply that same model to each patient in ${\color{#6b72ff}{\textbf{Trial 1}}}$ to get their predicted outcome under treatment ${\color{#FF6B6B}{b}}$.
@@ -674,7 +681,7 @@ $\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A =
 
 ## Estimation
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 We implement the Direct Method using three estimation method (1) **g-computation** (2) **IPW** and (3) **one-step/doubly-robust estimation**, where the one-step estimator is
 \begin{align}
 \hat{\psi}_{\text{1step}}(a, b) = \mathbb{P}_{\Omega, n}\{\varphi[\hat{\mu}_s(z, L), \hat{\pi}_s(z, L), \hat{g}(L)]\},
@@ -694,14 +701,14 @@ $$\begin{align*}
 
 ## Estimation
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 
-Statistical properities of one-step estimator, such as consistency and asymptotic normality, are established under standard regularity conditions.
+Statistical properities of one-step estimator, such as consistency and asymptotic normality, are established under <span style="background-color:#FFF2CC"> standard regularity conditions.<span>
 :::
 
 . . .
 
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+::: {style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
 Theroem (informal) The one-step estimator $\hat{\psi}_{\text{1step}}(a,b)$ satisfies: (1) Consistency.  $\hat{\psi}_{\text{1step}}(a,b) \xrightarrow{\mathbb{P}_{\Omega}} \psi(a, b).$ (2) Asymptotic linearity and normality: 
 $$ \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
         = \G_n\!\left(\varphi\big[\mu_s(z, L),\pi_s(z, L),g(L)\big]\right) 
@@ -717,7 +724,7 @@ with the $L^2(\mathbb{P}_{\Omega})$ errors defined by $$\Delta\pi_s := \|\pi_s -
 
 
 ## Estimation 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 We focus on a **causal machine learning estimator** in the main analysis. 
 
 * Can flexibly incorporate modern machine learning methods for nuisance estimation.
@@ -726,7 +733,7 @@ We focus on a **causal machine learning estimator** in the main analysis.
 
 . . .
 
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+::: {style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
 Rate Condition for Inference: each nuisance estimator
 converges in $L^2(\mathbb{P}_{\Omega})$ at a rate faster than $n^{-1/4}$, 
 $$  \Delta g = o_{\mathbb{P}_{\Omega}}(n^{-1/4}),\quad
@@ -743,7 +750,7 @@ where $\eta_0 = (\mu_s,\pi_s,g)$ denotes the collection of true nuisance functio
 :::
 <!-- ## Summary: Direct Method
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 The Direct Method lets us “directly compare” treatments that were never tested head-to-head in the same trial, by combining trial data and applying advanced statistical adjustment.
 
 **For Our Research**: This is **a straightforward and robust approach** to answer whether 6BPaLM is preferable to 9-month regimens for people living with HIV, provided the trial populations are sufficiently similar.
@@ -751,7 +758,7 @@ The Direct Method lets us “directly compare” treatments that were never test
 
 ## Estimation
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 **One-step estimation**:
 
 **Doubly-Robust**: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.
@@ -763,7 +770,7 @@ The Direct Method lets us “directly compare” treatments that were never test
 
 . . .
 
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+::: {style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
 Randomized trials simplify nuisance estimation: treatment mechanism is known.
 Only
 <span style="background-color:#FFF2CC">inclusion model $g(L)$ and outcome model $\mu_s(a,L)$</span>
@@ -773,19 +780,13 @@ need to be estimated well.
 
 ## Method (4): Indirect Method – decomposition for adjusting differing standard care
 
-::: {style="font-size: 85%;"}
-Instead of directly comparing 6BPaLM vs. 9-month regimens, we break the problem into:
-
-1. **The difference in treatment effects**  ($\theta$):
-   how much better is 6BPaLM vs. *its* standard care, compared to how much better a 9-month regimen is vs. *its* standard care?
-
-2. **The difference in standard care**  ($\phi$):
-   how different are the two standard care treatments themselves?
+::: {style="font-size: 75%;"}
+Instead of directly comparing 6BPaLM vs. 9-month regimens, we can decompose the total difference into two components: (1) the difference in treatment effects, and (2) the difference in standard care arms across trials.
 :::
 
 . . .
 
-::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"} 
+::: {style="font-size: 75%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"} 
 Total difference = (Treatment effect difference) + (Standard care difference), i.e., 
 $$\psi(a, b):= \mathbb{E}[Y(a)-Y(b)\mid\Omega] = \theta + \phi $$ 
 where $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$, difference in treatment effects,
@@ -793,7 +794,7 @@ and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the tw
 :::
 
 ## The Two Components: A Closer Look
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 
 - **Component 1: Treatment Effect Difference ($\theta$)**
   - Captures how much better each investigational regimen is compared to its own control, i.e., $\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]$
@@ -803,41 +804,39 @@ and $\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],$ the difference between the tw
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 - **Component 2: Standard Care Difference ($\phi$)**
   - Direct comparison: Standard Care 1 vs. Standard Care 2, capturing differences in background treatment across trials
 :::
 
 . . .
 
-::: {style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;"}
+::: {style="font-size: 75%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;"}
 We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]$$ coincides with the pairwise contrast $\phi = \psi(c_1, c_2)$. 
 :::
 
 ## Identification Assumptions (for $\theta$ and $\phi$) 
-::: {style="font-size: 85%;"}
-- **(A1) Consistency**  
-
-- **(A2) Exchangeability within each trial**  
+::: {style="font-size: 75%;"}
+- **(A4.1) Consistency**  
+- **(A4.2)  No trial engagement effects:** for every treatment $z$ and every trial $s$, $Y(s, z) = Y(z)$.
+- **(A4.3) Exchangeability within each trial**  
   - Trial 1: $Y(a), Y(c_1)\perp\!\!\perp A \mid L,S=1$  
   - Trial 2: $Y(b), Y(c_2)\perp\!\!\perp A \mid L,S=2$
 
-- **(A3) Positivity of treatment within trial**  
+- **(A4.4) Positivity of treatment within trial**  
 
-  Everyone in each trial has a non-zero probability to receive every treatment arm.
-
-- **(A4) Transportability** : 
+- **(A4.5) Transportability** : 
   - for $\phi,$ $Y(c_1),Y(c_2)\perp\!\!\perp S\mid V$; where $V=\text{country};$ (standard-of-care is typically defined at the national level, often guided by WHO, and implemented through country-specific clinical guidelines.)
   - for $\theta,$ $Y(a),Y(b)\perp\!\!\perp S\mid L$ 
 
-- **(A5) Positivity of trial inclusion**  
+- **(A4.6) Positivity of trial inclusion**  
   - For any covariate profile $L$, a subject must have a non-zeor probability to be in both trials.
 :::
 
 
 ## Strengths & Limitations
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 
 | Method                      | Uses randomization | Uses all arms data| Statistically efficient | More Assumption | 
 | --------------------------- | :----------------: | :-----------: | :-----------: | :---------------------: | 
@@ -847,13 +846,13 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 | **4: Pooled-IPD Indirect** |          ✔         |       ✔       |       ✔       |            Yes            |
 :::
 
-::: {style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
+::: {style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;"}
 ✔ = fully satisfied; • △ = partially satisfied; ✖ = not applicable
 :::
 
 . . .
 
-::: {style="font-size: 85%;"}
+::: {style="font-size: 75%;"}
 **Additional Targeting Conditions**
 
 * **1 (Traditional):** requires a common control and equal contrasts across trials
