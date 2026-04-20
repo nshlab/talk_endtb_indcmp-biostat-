@@ -560,6 +560,24 @@ No group of patients should exist only in one trial and never the other.
 If a certain kind of patient (say very sick patients) can only ever appear in trial 1 and never in trial 2, then we cannot use trial 2 to learn about that type of patient.
 :::
 
+
+## Method 3: Identification Assumptions (summary)
+
+::: {style="font-size: 85%;"}
+
+| Label    | Assumption                                                                                                                                                         |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **M3.1** | **Consistency**                                                                                                                                                    |
+| **M3.2** | **No trial engagement effects**: $Y(s,z)=Y(z)$ for all $z\in{a,b}$ and $s\in{1,2}$                                                                                 |
+| **M3.3** | **Conditional exchangeability within each trial**: $Y(a)\perp\!\!\perp A\mid L, S=1$ and $Y(b)\perp\!\!\perp A\mid L, S=2$                                           |
+| **M3.4** | **Positivity of treatment assignment within each trial**: $\mathbb{P}(A=z_1\mid L,S=1)>0$ for $z_1\in{a,c_1}$; $\mathbb{P}(A=z_2\mid L,S=2)>0$ for $z_2\in{b,c_2}$ |
+| **M3.5** | **Transportability**: $Y(a),Y(b)\perp\!\!\perp S\mid L$, or weaker mean transportability conditions                                                                 |
+| **M3.6** | **Positivity of trial inclusion**: if $f(L=l,S=s)\neq 0$, then $\mathbb{P}(S=3-s\mid L=l)>0$                                                                       |
+
+:::
+
+
+
 ## Identification Result (Statistical Estimand)
 
 ::: {style="font-size: 75%;"}
@@ -834,8 +852,13 @@ We can estimate $\phi$ using the **Direct Method** from before, since $$\phi := 
 :::
 
 
-## Strengths & Limitations
 
+
+## Comparison of Methods 
+
+![](figs/comparison2.png){width=87% fig-align="center" .lightbox}
+
+## Strengths & Limitations
 ::: {style="font-size: 75%;"}
 
 | Method                      | Uses randomization | Uses all arms data| Statistically efficient | More Assumption | 
