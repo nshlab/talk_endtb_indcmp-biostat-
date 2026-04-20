@@ -7,3 +7,4 @@ deck_*.pdf
 *_files/
 
 **/*.quarto_ipynb
+.DS_Store
