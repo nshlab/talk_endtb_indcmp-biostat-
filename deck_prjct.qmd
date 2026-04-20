@@ -330,11 +330,7 @@ $$
 Variance estimation: sandwich estimators or nonparametric bootstrap applied **independently within each trial**.
 :::
 
-. . .
 
-::: {style="font-size: 85%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;"}
- **In our setting**: endTB and TB-PRACTECAL use heterogeneous standards of care ($c_1 \neq c_2$), so $\phi \neq 0$ and the traditional estimator generally targets $\theta = \psi - ## \phi$ rather than $\psi$. **Bias is systematic.**
-:::
 
 ## Method 2: Target Trial Emulation Approach
 
@@ -428,10 +424,24 @@ Under M2.4–M2.5, $\tau'_a - \tau'_b = \psi(a,b).$
 
 ::: {style="font-size: 65%;"}
 **M2.5 (Homogeneity)** requires that the average treatment effect is the same in the treated and untreated subpopulations:
+
+
+
 $$
-\Delta := \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{trt}}] - \mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{untrt}}] = \int \tau_{ab}(L)\{f(L\mid\Omega_{\text{trt}}) - f(L\mid\Omega_{\text{untrt}})\}\,dL.
+\begin{align*}
+\mathbb{E}[Y(a) - Y(b)\mid \Omega] &= \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] \mathbb{P}(\Omega_{\mathrm{trt}})+ \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}] \mathbb{P}(\Omega_{\mathrm{untrt}}) \\
+&=\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] \left[ \mathbb{P}(\Omega_{\mathrm{trt}}) + \mathbb{P}(\Omega_{\mathrm{untrt}})\right]\\
+&=\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}],
+\end{align*}
 $$
-Violation arises from **interaction between treatment effect heterogeneity and covariate imbalance** across subpopulations. In-practice, within-trial randomization makes $f(L\mid\Omega_{\text{trt}}) \approx f(L\mid\Omega_{\text{untrt}})$, partially mitigating this.
+
+where the second equation requires that $\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] = \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}]$.
+
+Thus, identifying the full-population effect using only treated individuals requires
+$$
+\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] = \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}],
+$$
+i.e., equality of causal effects across treatment-uptake groups.
 :::
 
 
