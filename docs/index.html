@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="deck_prjct_files/libs/clipboard/clipboard.min.js"></script>
+<script src="deck_prjct_files/libs/quarto-html/tabby.min.js"></script>
+<script src="deck_prjct_files/libs/quarto-html/popper.min.js"></script>
+<script src="deck_prjct_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="deck_prjct_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="deck_prjct_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="deck_prjct_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="deck_prjct_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="deck_prjct_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="deck_prjct_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <meta name="author" content="Cong Jiang">
+  <meta name="author" content="Martha Boahene">
+  <meta name="author" content="Nima Hejazi">
+  <meta name="dcterms.date" content="2026-04-20">
+  <title>Cross-Trial Causal Comparison of Treatment Regimens Without a Common Comparator: A Case Study of MDR/RR-TB</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="deck_prjct_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="deck_prjct_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="deck_prjct_files/libs/revealjs/dist/theme/quarto-b2736e9fcda83c748fd63b6e579550ef.css">
+  <link href="deck_prjct_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="deck_prjct_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="deck_prjct_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="deck_prjct_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+<script src="mathjax-config.js"></script>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Cross-Trial Causal Comparison of Treatment Regimens Without a Common Comparator: A Case Study of MDR/RR-TB</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Cong Jiang <a href="https://orcid.org/0000-0002-4486-5423" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:cjiang@hsph.harvard.edu">cjiang@hsph.harvard.edu</a>
+</div>
+        <p class="quarto-title-affiliation">
+            Harvard Biostatistics
+          </p>
+    </div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Martha Boahene <a href="https://orcid.org/0009-0005-7317-0304" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:mboahene@g.harvard.edu">mboahene@g.harvard.edu</a>
+</div>
+        <p class="quarto-title-affiliation">
+            Harvard Biostatistics
+          </p>
+    </div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Nima Hejazi <a href="https://orcid.org/0000-0002-7127-2789" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:nhejazi@hsph.harvard.edu">nhejazi@hsph.harvard.edu</a>
+</div>
+        <p class="quarto-title-affiliation">
+            Harvard Biostatistics
+          </p>
+    </div>
+</div>
+
+  <p class="date">April 20, 2026</p>
+</section>
+<section id="mdrrr-tb-and-hiv" class="slide level2">
+<h2>MDR/RR-TB and HIV</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Drug-resistant TB (MDR/RR-TB)</strong> remains a major global cause of preventable morbidity and mortality.</li>
+<li>People living with HIV (PLHIV) face substantially higher TB risk, and <strong>TB is a leading cause of death among PLHIV</strong>.</li>
+<li>Clinicians and programs need evidence to choose among <strong>new all-oral regimens</strong>.</li>
+</ul>
+</div>
+</section>
+<section id="new-hope-shorter-all-oral-mdrrr-tb-regimens" class="slide level2">
+<h2>New hope: shorter, all-oral MDR/RR-TB regimens</h2>
+<div style="font-size: 85%;">
+<p>Recent trials introduced <strong>short-course, all-oral regimens</strong>:</p>
+<ul>
+<li><strong>TB-PRACTECAL</strong> <span class="citation" data-cites="nyangwa_24-week_2022 nyangwa_short_2024">(<a href="#/references" role="doc-biblioref" onclick="">Nyang’wa <em>et al.</em>, 2022</a>, <a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>
+<ul>
+<li>6-month regimen: <strong>6BPaLM</strong> (Bedaquiline + Pretomanid + Linezolid + Moxifloxacin)</li>
+<li>Non-inferior vs standard care</li>
+</ul></li>
+<li><strong>endTB</strong> <span class="citation" data-cites="guglielmetti_oral_2025">(<a href="#/references" role="doc-biblioref" onclick="">Guglielmetti <em>et al.</em>, 2025</a>)</span>
+<ul>
+<li>9-month regimens: <strong>9BLMZ, 9BCLLfxZ, 9BDLLfxZ</strong></li>
+<li>Non-inferior vs standard care</li>
+</ul></li>
+</ul>
+<p><strong>Standard care in each study was</strong></p>
+<ul>
+<li>TB-PRACTECAL: 9–12 or 18–20 month all-oral regimens (region-specific)</li>
+<li>endTB: 18–20 month all-oral regimens (region-specific)</li>
+</ul>
+</div>
+</section>
+<section id="the-decision-problem-no-head-to-head-evidence" class="slide level2">
+<h2>The decision problem: no head-to-head evidence</h2>
+<div style="font-size: 85%;">
+<ul>
+<li>WHO guidelines recommend multiple <strong>all-oral</strong> MDR/RR-TB regimens; shorter regimens are appealing for feasibility and adherence.</li>
+<li>However, <strong>comparative evidence between 6-month and 9-month regimens is limited</strong>, and certainty of evidence is often low.</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #f8f8f8; padding: 10px; border-left: 5px solid #2e8b57;">
+<p><strong>Question</strong>: Is <strong>6BPaLM</strong> truly preferable to <strong>9-month regimens</strong> from endTB?</p>
+</div>
+</div>
+</section>
+<section id="what-data-do-we-have-two-high-quality-rcts" class="slide level2">
+<h2>What data do we have: two high-quality RCTs</h2>
+<div style="font-size: 85%;">
+<p>We have individual patient data (IPD) from two non-inferiority RCTs:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 45%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>TB-PRACTECAL</th>
+<th>endTB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Duration</strong></td>
+<td>6-month regimens</td>
+<td>9-month regimens</td>
+</tr>
+<tr class="even">
+<td><strong>Standard care</strong></td>
+<td>9–12 or 18–20 month all-oral regimens (region-specific)</td>
+<td>18–20 month all-oral regimens (region-specific)</td>
+</tr>
+<tr class="odd">
+<td><strong>Study regions</strong></td>
+<td>Uzbekistan, Belarus, South Africa</td>
+<td>Georgia, India, Kazakhstan, Lesotho, Pakistan, Peru, South Africa</td>
+</tr>
+<tr class="even">
+<td><strong>Follow-up time</strong></td>
+<td>At least 72 weeks</td>
+<td>At least 73 weeks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<ol type="1">
+<li><strong>No head-to-head regimen comparison</strong> (no common arm)<br>
+</li>
+<li><strong>Heterogeneous standard care</strong> (region/time-specific)<br>
+</li>
+<li><strong>Population and setting differences</strong> across trial regions (affects transportability)</li>
+</ol>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p>Because a new head-to-head RCT is unlikely in the near term, we need to make the best possible use of existing evidence through cross-trial data fusion.</p>
+</div>
+</div>
+</section>
+<section id="aim-and-approaches" class="slide level2">
+<h2>Aim and Approaches</h2>
+<div style="font-size: 85%;">
+<p><strong>Primary aim</strong>: Compare the efficacy of 6BPaLM versus endTB regimen (9BLMZ, 9BCLLfxZ, 9BDLLfxZ).</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Approaches</strong>:</p>
+<ul>
+<li><strong>Meta-analytic</strong> approach: apply <strong>meta analysis</strong> to estimate direct contrasts.</li>
+<li><strong>Target trial emulation</strong> approach: use target trial emulation framework (Hernán &amp; Robins, 2016), then analyze as an observational study.</li>
+<li><strong>Pooled-IPD “direct” strategy</strong>: Pool individual patient data (IPD) from both trials and estimate the direct head-to-head contrast between the two treatments of intests.</li>
+<li><strong>Pooled-IPD “indirect” strategy</strong>: Pool IPD from both trials and estimate the indirect contrast between treatments <span style="background-color:#FFF2CC">despite non-common comparator (standard care)<span>.</span></span></li>
+</ul>
+</div>
+<!-- . . .
+
+::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"}
+We will introduce four methodological strategies for data fusion in this cross-trial setting.
+::: -->
+</div>
+</section>
+<section id="related-literature-and-contribution" class="slide level2">
+<h2>Related Literature and Contribution</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Transportability</strong>
+<ul>
+<li>Prior work studies how to transport causal effects from multiple randomized trials to a <strong>new target population</strong> where experimental data may not be available <span class="citation" data-cites="dahabreh2019extending dahabreh_toward_2020">(<a href="#/references" role="doc-biblioref" onclick="">Dahabreh <em>et al.</em>, 2020</a>; <a href="#/references" role="doc-biblioref" onclick="">Dahabreh and Hernán, 2019</a>)</span>.</li>
+<li>The core assumption of these methods lies in addressing the covariate distribution shift between the “experiment” and “target” groups.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Common trial structure assumption</strong><br>
+Much of the causal transportability and IPD meta-analysis literature considers settings where trials evaluate the <strong>same treatment set or comparator</strong>, which simplifies pooling or transport of treatment effects (e.g., <span class="citation" data-cites="dahabreh_toward_2020">(<a href="#/references" role="doc-biblioref" onclick="">Dahabreh <em>et al.</em>, 2020</a>)</span>).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="our-setting-and-contribution" class="slide level2">
+<h2>Our setting and contribution</h2>
+<div style="font-size: 85%;">
+<ul>
+<li>We define a <strong>target population</strong> as the <strong>union of participants from endTB and TB-PRACTECAL</strong> and focus on cross-trial causal comparison.</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<ul>
+<li>We compare four strategies by combining ideas from <strong>transportability, target trial emulation, and IPD meta-analysis</strong> In particular, standard cares comparison can be solved in our framework by appropriately adjusting for differences.</li>
+</ul>
+</div>
+<!-- ## Data Structure and Notation
+::: {style="font-size: 85%;"}
+endTB trial $s = 1$ and TB-PRACTECAL trial $s = 2$ endTB trial $s = 1$ and TB-PRACTECAL trial and simple random sampling from the target population $\Omega$ to each trial population $\Omega_{s=1}$ and $\Omega_{s=2}$.
+::: -->
+</div>
+</section>
+<section id="data-structure-and-notation" class="slide level2">
+<h2>Data Structure and Notation</h2>
+<div style="font-size: 80%;">
+<p><strong>Populations</strong>:</p>
+<ul>
+<li><span class="math inline">\(S \in \{1,2\}\)</span>: trial indicator<br>
+</li>
+<li><span class="math inline">\(S=1\)</span>: endTB<br>
+</li>
+<li><span class="math inline">\(S=2\)</span>: TB-PRACTECAL<br>
+</li>
+<li><span class="math inline">\(\Omega\)</span>: target population of interest<br>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<p><strong>Variables</strong>:</p>
+<ul>
+<li><span class="math inline">\(A \in \mathcal{A}\)</span>: treatment received<br>
+</li>
+<li><span class="math inline">\(a\)</span>: 6BPaLM<br>
+</li>
+<li><span class="math inline">\(b\)</span>: endTB regimen (9BLMZ, 9BCLLfxZ, 9BDLLfxZ)<br>
+</li>
+<li><span class="math inline">\(c_s\)</span>: standard care in trial (S=s)<br>
+</li>
+<li><span class="math inline">\(Y\)</span>: outcome (e.g., unfavorable outcome by end of follow-up)<br>
+</li>
+<li><span class="math inline">\(L\)</span>: baseline covariates (measured pre-treatment)</li>
+</ul>
+<p><!-- *Target Estimand*
+$\psi(a,b) = \mathbb{E}\!\left[ Y(a) - Y(b) \mid \Omega \right]$ --></p>
+</div>
+</div>
+</section>
+<section id="overview-of-four-data-fusion-methods" class="slide level2">
+<h2>Overview of four data fusion methods</h2>
+<div style="font-size: 80%; background-color: #fff0f0; padding: 2px; border-left: 2px solid #b22222;">
+<p>Target population of interest <span class="math inline">\(\Omega\)</span>: consisting of individuals at risk of TB recurrence in countries hosting enrollment sites for <span style="background-color:#FFF2CC">either the endTB or TB-PRACTECAL trials <span>.</span></span></p>
+</div>
+<div style="font-size: 75%;">
+<!-- $\Omega = \Omega_{s=1} \cup \Omega_{s=2},$ where $\Omega_{s=1}$ and $\Omega_{s=2}$ denote the subpopulation of endTB and TB-PRACTECAL, respectively. -->
+<p><span class="math inline">\(\Omega = \Omega_{\text{TB-PRACTECAL}} \cup \Omega_{\text{endTB}}\)</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 66%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Key Idea</th>
+<th>Target Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>(1) Traditional Approach</strong></td>
+<td>Compare each treatment to control in each trial, then take the difference of the estimates (possibly with weighting)</td>
+<td><span class="math inline">\(\Omega\)</span> (Pooled)</td>
+</tr>
+<tr class="even">
+<td><strong>(2) Target Trial Emulation Approach</strong></td>
+<td>Combine treatment arms by developing target trial protocols, analyze as an observational study</td>
+<td><span class="math inline">\(\Omega\)</span> (Pooled)</td>
+</tr>
+<tr class="odd">
+<td><strong>(3) Direct Method</strong></td>
+<td>Estimate direct contrast by pooling data and adjusting for trial specific differences</td>
+<td><span class="math inline">\(\Omega\)</span> (Pooled)</td>
+</tr>
+<tr class="even">
+<td><strong>(4) Indirect Method</strong></td>
+<td>Decompose contrast into treatment effect difference + control effect difference</td>
+<td><span class="math inline">\(\Omega\)</span> (Pooled)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<p><strong>All methods aim to estimate the casual estimand</strong>: <span class="math display">\[\psi(a, b) = \mathbb{E}[Y(a) - Y(b) \mid \Omega].\]</span></p>
+</div>
+<!-- . . .
+
+::: {style="font-size: 80%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"}
+**Next**: We will examine each method in detail—their causal assumptions, statistical estimand, estimators, and implications for our cross-trial comparison.
+::: -->
+</div>
+</section>
+<section id="method-1-traditional-approach" class="slide level2">
+<h2>Method 1: Traditional approach</h2>
+<div style="font-size: 85%;">
+<p><strong>The Core Idea</strong>: Use randomization within each trial, then take the difference of the estimated effects.</p>
+<p>What the traditional approach does:</p>
+<ol type="1">
+<li><strong>Analyze each trial separately</strong>: Calculate within trial effect with data from TB-PRACTECAL and endTB separately.</li>
+<li><strong>Compare the two results</strong>: Take the difference between the two trial-specific effects.</li>
+</ol>
+<p><strong>Strength</strong>: Uses within trial randomization</p>
+<p><strong>Limitation</strong>: Assumes negligible differences in standard-care efficacy between endTB and TB-PRACTECAL, as achieved by having a common comparator.</p>
+<p>This directly reflects the common comparator: <span class="math inline">\(\mathbb{E}[Y(c_1) - Y(c_2) \mid \Omega] = 0\)</span></p>
+</div>
+</section>
+<section id="method-1-traditional-approach-estimand" class="slide level2">
+<h2>Method 1: Traditional Approach — Estimand</h2>
+<div style="font-size: 85%;">
+<p><strong>Estimand</strong>: Compare trial-specific treatment-vs-control contrasts, then take the difference.</p>
+<p>Define trial-specific causal effects: <span class="math display">\[
+\tau_a := \mathbb{E}[Y(a) - Y(c_1) \mid S=1], \qquad \tau_b := \mathbb{E}[Y(b) - Y(c_2) \mid S=2]
+\]</span></p>
+<p>The <strong>traditional indirect comparison estimand</strong> is <span class="math inline">\(\tau_a - \tau_b.\)</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p>Recall the target causal estimand is <span class="math inline">\(\psi(a,b) = \mathbb{E}[Y(a)-Y(b)\mid\Omega]\)</span>, which decomposes as <span class="math display">\[
+\psi = \underbrace{\mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]}_{\theta} + \underbrace{\mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]}_{\phi}.
+\]</span></p>
+<p>The traditional method targets <span class="math inline">\(\theta\)</span>, not <span class="math inline">\(\psi\)</span> — <strong>unless <span class="math inline">\(\phi = 0\)</span>.</strong></p>
+</div>
+</div>
+</section>
+<section id="method-1-identification-assumptions" class="slide level2 smaller">
+<h2>Method 1: Identification Assumptions</h2>
+<div style="font-size: 83%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>M1.1</strong></td>
+<td><strong>Consistency</strong>: <span class="math inline">\(Y = Y(z)\,\mathbf{1}(A=z)\)</span> for all <span class="math inline">\(z\in\{a,b,c_1,c_2\}\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>M1.2</strong></td>
+<td><strong>Exchangeability within each trial</strong>: <span class="math inline">\(Y(a),Y(c_1)\perp\!\!\!\perp A\mid S=1\)</span>; <span class="math inline">\(Y(b),Y(c_2)\perp\!\!\!\perp A\mid S=2\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>M1.3</strong></td>
+<td><strong>Positivity</strong>: <span class="math inline">\(P(A=z\mid S=s)&gt;0\)</span> for each arm <span class="math inline">\(z\)</span> in trial <span class="math inline">\(s\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>M1.4</strong></td>
+<td><strong>No trial engagement effects</strong>: <span class="math inline">\(Y(s,z)=Y(z)\)</span> — potential outcomes do not depend on trial membership</td>
+</tr>
+<tr class="odd">
+<td><strong>M1.5</strong></td>
+<td><strong>Harmonized control</strong>: <span class="math inline">\(c_1=c_2=c\)</span>, or weakly, <span class="math inline">\(\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]=0\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>M1.6</strong></td>
+<td><strong>Homogeneity of control-relative effects</strong>: <span class="math inline">\(\mathbb{E}[\delta_a\mid S=1]=\mathbb{E}[\delta_a\mid S=2]\)</span>, <span class="math inline">\(\mathbb{E}[\delta_b\mid S=1]=\mathbb{E}[\delta_b\mid S=2]\)</span>, where <span class="math inline">\(\delta_t:=Y(t)-Y(c_t)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="font-size: 83%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;">
+<p><strong>M1.1–M1.4</strong> guarantee identification of each trial-specific ATE by randomization. <strong>M1.5–M1.6</strong> are the strong additional conditions required to recover <span class="math inline">\(\psi\)</span>: they are <strong>not directly testable</strong> from the observed two-trial data.</p>
+</div>
+</div>
+</section>
+<section id="method-1-identification-theorem-and-proof-sketch" class="slide level2">
+<h2>Method 1: Identification Theorem and Proof Sketch</h2>
+<div style="font-size: 85%;">
+<p><strong>Theorem 1.</strong> Under M1.1–M1.4, <span class="math inline">\(\tau_a - \tau_b\)</span> is identified: <span class="math display">\[
+\tau_a = \mathbb{E}[Y\mid A=a, S=1] - \mathbb{E}[Y\mid A=c_1, S=1],
+\]</span> and analogously for <span class="math inline">\(\tau_b\)</span>. Under M1.5–M1.6, <span class="math inline">\(\tau_a - \tau_b = \psi(a,b).\)</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Proof sketch.</strong> M1.5 implies <span class="math inline">\(\phi=0\)</span>, so <span class="math inline">\(\psi = \theta\)</span>. For <span class="math inline">\(\theta\)</span>, apply the law of total expectation over <span class="math inline">\(\Omega = \Omega_1\cup\Omega_2\)</span>: <span class="math display">\[
+\theta = \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega] \overset{\text{M1.6}}{=} \tau_a - \tau_b. \qquad\square
+\]</span> M1.6 is the critical step: it requires the mean control-relative effect for each active treatment to be <strong>invariant across trial populations</strong> — a strong, scale-dependent restriction with no nonparametric test from the observed data.</p>
+</div>
+</div>
+</section>
+<section id="method-1-estimation-and-inference" class="slide level2">
+<h2>Method 1: Estimation and Inference</h2>
+<div style="font-size: 85%;">
+<p>Within each trial, <span class="math inline">\(\tau_a\)</span> and <span class="math inline">\(\tau_b\)</span> can be estimated via:</p>
+<ul>
+<li><p><strong>IPW</strong>: <span class="math inline">\(\hat{\tau}_a^{\text{IPW}} = \mathbb{P}_{\Omega,n}\!\left[\dfrac{\mathbf{1}(A=a,S=1)}{P(A=a\mid S=1)}Y - \dfrac{\mathbf{1}(A=c_1,S=1)}{P(A=c_1\mid S=1)}Y\right]\)</span></p></li>
+<li><p><strong>G-computation</strong>: <span class="math inline">\(\hat{\tau}_a^{G} = \hat{\mu}_1(a) - \hat{\mu}_1(c_1)\)</span></p></li>
+<li><p><strong>EIF-based (one-step/doubly robust)</strong>: augments IPW with outcome regression; consistent if either nuisance model is correctly specified.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #f0f8ff; padding: 8px; border-left: 4px solid #4682b4;">
+<p>Because the two trials are <strong>independent</strong>, asymptotic normality follows directly: <span class="math display">\[
+\sqrt{n}\bigl[(\hat{\tau}_a - \hat{\tau}_b) - (\tau_a-\tau_b)\bigr] \xrightarrow{d} \mathcal{N}\!\left(0,\,\sigma_a^2 + \sigma_b^2\right).
+\]</span> Variance estimation: sandwich estimators or nonparametric bootstrap applied <strong>independently within each trial</strong>.</p>
+</div>
+</div>
+</section>
+<section id="method-2-target-trial-emulation-approach" class="slide level2">
+<h2>Method 2: Target Trial Emulation Approach</h2>
+<div style="font-size: 85%;">
+<p><strong>Core idea</strong>: Construct an emulated trial by pooling treated arms across trials and analyzing the data as an observational study, following a target trial emulation protocol while ignoring standard-care arms.</p>
+<p><strong>Motivation</strong>: Conducting a new head-to-head randomized trial is often infeasible. By discarding control arms and comparing treated groups directly, we extract maximal information from existing trials under explicit causal assumptions.</p>
+<p><strong>What this approach does</strong>:</p>
+<ul>
+<li><p>Specify a target trial protocol (eligibility, treatment strategies, outcome, follow-up). &lt;!–</p></li>
+<li><p>Restrict data to treated participants. –&gt;</p></li>
+<li><p>Pool treated arms across trials to form a single analytic dataset.</p></li>
+<li><p>Adjust for baseline covariates to control for possible confounding.</p></li>
+</ul>
+</div>
+</section>
+<section id="method-2-target-trial-emulation-approach-1" class="slide level2">
+<h2>Method 2: Target Trial Emulation Approach</h2>
+<div style="font-size: 85%;">
+<p><strong>Identification</strong></p>
+<ul>
+<li><p>Exchangeability is assumed conditional on measured covariates.</p></li>
+<li><p>Randomization is no longer used once control arms are discarded.</p></li>
+</ul>
+<p><strong>Limitation</strong></p>
+<ul>
+<li><p>Because control arms are ignored, identification relies entirely on covariate adjustment rather than randomization.</p></li>
+<li><p>Lower sample size due to discarding control arms.</p></li>
+</ul>
+</div>
+</section>
+<section id="method-2-target-trial-emulation-setup" class="slide level2">
+<h2>Method 2: Target Trial Emulation — Setup</h2>
+<div style="font-size: 85%;">
+<p><strong>Core idea</strong>: Reframe cross-trial evidence synthesis as the <strong>emulation of a hypothetical head-to-head RCT</strong> (Hernán &amp; Robins, 2016). Pool the <em>treated</em> arms across trials and analyze the combined dataset as an observational study.</p>
+<p>Let <span class="math inline">\(\Omega_{\text{trt}}\)</span> denote the subpopulation of treated participants. The <strong>pooled treated dataset</strong> is <span class="math display">\[
+\mathcal{O}^{\text{pool}}_{\text{trt}} = \{(Y_i, A_i, L_i, S_i) : A_i \in \{a, b\},\; i \in \Omega_{\text{trt}}\}.
+\]</span></p>
+<p><strong>Target estimand</strong> in this approach: <span class="math display">\[
+\tau'_a - \tau'_b, \quad \text{where}\quad \tau'_a := \mathbb{E}[Y(a)\mid\Omega_{\text{trt}}],\quad \tau'_b := \mathbb{E}[Y(b)\mid\Omega_{\text{trt}}].
+\]</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #fff0f0; padding: 8px; border-left: 4px solid #b22222;">
+<p><strong>Key structural consequence</strong>: Once treated arms are pooled, treatment assignment between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> is <strong>confounded with trial membership</strong> — within-trial randomization no longer applies. The pooled dataset must be analyzed as an observational study.</p>
+</div>
+</div>
+</section>
+<section id="method-2-identification-assumptions" class="slide level2 smaller">
+<h2>Method 2: Identification Assumptions</h2>
+<div style="font-size: 83%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>M2.1</strong></td>
+<td><strong>Consistency</strong></td>
+</tr>
+<tr class="even">
+<td><strong>M2.2</strong></td>
+<td><strong>Conditional exchangeability in <span class="math inline">\(\Omega_{\text{trt}}\)</span></strong>: <span class="math inline">\(Y(a),Y(b)\perp\!\!\!\perp A\mid L,\,\Omega_{\text{trt}}\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>M2.3</strong></td>
+<td><strong>Positivity in <span class="math inline">\(\Omega_{\text{trt}}\)</span></strong>: <span class="math inline">\(P(A=z\mid L,\,\Omega_{\text{trt}})&gt;0\)</span> for <span class="math inline">\(z\in\{a,b\}\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>M2.4</strong></td>
+<td><strong>No trial engagement effects</strong>: <span class="math inline">\(Y(s,z)=Y(z)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>M2.5</strong></td>
+<td><strong>Homogeneity across treatment-uptake subgroups</strong>: <span class="math inline">\(\mathbb{E}[Y(a)-Y(b)\mid\Omega_{\text{trt}}]=\mathbb{E}[Y(a)-Y(b)\mid\Omega]\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="font-size: 83%;">
+<p><strong>Theorem 2.</strong> Under M2.1–M2.4, <span class="math inline">\(\tau'_a - \tau'_b\)</span> is identified from <span class="math inline">\(\mathcal{O}^{\text{pool}}_{\text{trt}}\)</span>: <span class="math display">\[
+\tau'_a - \tau'_b = \mathbb{E}[\mathbb{E}(Y\mid A=a, L, \Omega_{\text{trt}})] - \mathbb{E}[\mathbb{E}(Y\mid A=b, L, \Omega_{\text{trt}})].
+\]</span> Under M2.4–M2.5, <span class="math inline">\(\tau'_a - \tau'_b = \psi(a,b).\)</span></p>
+</div>
+</div>
+</section>
+<section id="method-2-assumptions-closer-look" class="slide level2">
+<h2>Method 2: Assumptions — Closer Look</h2>
+<div style="font-size: 65%;">
+<p><strong>M2.2 (Exchangeability)</strong> requires that, conditional on <span class="math inline">\(L\)</span>, treatment assignment is independent of potential outcomes within <span class="math inline">\(\Omega_{\text{trt}}\)</span>. This is the standard unconfoundedness condition for observational data — <strong>not guaranteed by randomization.</strong></p>
+</div>
+<div class="fragment">
+<div style="font-size: 65%;">
+<p><strong>M2.5 (Homogeneity)</strong> requires that the average treatment effect is the same in the treated and untreated subpopulations:</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathbb{E}[Y(a) - Y(b)\mid \Omega] &amp;= \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] \mathbb{P}(\Omega_{\mathrm{trt}})+ \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}] \mathbb{P}(\Omega_{\mathrm{untrt}}) \\
+&amp;=\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] \left[ \mathbb{P}(\Omega_{\mathrm{trt}}) + \mathbb{P}(\Omega_{\mathrm{untrt}})\right]\\
+&amp;=\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}],
+\end{align*}
+\]</span></p>
+<p>where the second equation requires that <span class="math inline">\(\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] = \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}]\)</span>.</p>
+<p>Thus, identifying the full-population effect using only treated individuals requires <span class="math display">\[
+\mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{trt}}] = \mathbb{E}[Y(a) - Y(b)\mid \Omega_{\mathrm{untrt}}],
+\]</span> i.e., equality of causal effects across treatment-uptake groups.</p>
+</div>
+</div>
+</section>
+<section id="methods-3-and-4-direct-and-indirect-approaches" class="slide level2">
+<h2>Methods 3 and 4: Direct and Indirect Approaches</h2>
+<div style="font-size: 85%;">
+<!-- What if we could combine data from both trials into one large dataset and then compare the treatments of interests? -->
+<p>Merge the data from TB-PRACTECAL and endTB, and <span style="background-color:#FFF2CC"> extend inferences from trial participants to the target population of interest (i.e., <span class="math inline">\(\Omega\)</span>).<span></span></span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<p>Due to <span class="math inline">\(\Omega = \Omega_{\text{TB-PRACTECAL}} \cup \Omega_{\text{endTB}},\)</span> we</p>
+<ul>
+<li>use law of total expectation to decompose <span class="math inline">\(\Omega\)</span> into each trial’s population;</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<ul>
+<li>apply <strong>transportability</strong> to answer questions such as: <em>“What would be the average treatment effect if the endTB participants had received the TB-PRACTECAL intervention?”</em></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<p>Recall the definitions <span class="citation" data-cites="hernan2016 dahabreh2019extending">(<a href="#/references" role="doc-biblioref" onclick="">Dahabreh and Hernán, 2019</a>; <a href="#/references" role="doc-biblioref" onclick="">Hernán, 2016</a>)</span>:</p>
+<ul>
+<li><p><strong>Generalizability:</strong> extension of inferences from the trial to a target population that <em>coincides, or is a subset of</em>, the trial-eligible population</p></li>
+<li><p><strong>Transportability:</strong> extension of inferences from the trial to a target population that <em>includes individuals who are not part</em> of the trial-eligible population.</p></li>
+</ul>
+</div>
+<!-- ## Method: Direct and Indirect Method
+
+::: {style="font-size: 85%;"}
+In contrast to the trial emulation strategy, both the Direct and Indirect methods leverage randomization: <span style="background-color:#FFF2CC">the within trial randomization implies the conditional ramdomizaiton.<span>
+:::
+
+::: {style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;"}
+In contrast to the trial emulation strategy, both the Direct and Indirect methods leverage randomization: the within trial randomization implies the conditional ramdomizaiton.
+::: -->
+</div>
+</section>
+<section id="method-3-direct-method-for-psia-b" class="slide level2">
+<h2>Method 3: Direct Method for <span class="math inline">\(\psi(a, b)\)</span></h2>
+<div style="font-size: 75%;">
+<p><strong>Assumption M3.1: Consistency</strong> the observed outcome equals the potential outcome under the treatment actually received, which requires well-defined interventions and rules out multiple versions of treatment and interference.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<p><strong>Assumption M3.2: No trial engagement effects:</strong> <span class="math inline">\(Y(s, z) = Y(z)\)</span> for every treatment <span class="math inline">\(z \in \{a,b\}\)</span> and every trial <span class="math inline">\(s \in \{1,2\}\)</span>.</p>
+<p>Trial membership does not directly affect the potential outcome beyond its role in treatment assignment. As a result, treatments can be viewed as invariant interventions across trials, enabling meaningful cross-trial comparisons.</p>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #fff0f0; padding: 8px; border-left: 5px solid #b22222;">
+<p>This assumption can be violated in the presence of a Hawthorne effect, where individuals modify their behavior simply because they are being observed or monitored, rather than due to the treatment itself.</p>
+</div>
+</div>
+</section>
+<section id="assumptions-of-method-3" class="slide level2">
+<h2>Assumptions of Method 3</h2>
+<div style="font-size: 75%;">
+<p><strong>Assumption M3.3: Exchangeability (unconfoundedness)</strong></p>
+<p><span class="math display">\[Y(a)\perp\!\!\perp A\mid (L, S=1),\ \text{and}\ Y(b)\perp\!\!\perp A\mid (L, S=2)\]</span></p>
+<p>If we do not have within trial randomization, we need to measure all important patient characteristics (<span class="math inline">\(L\)</span>) to ensure <strong>treatment assignment is independent of potential outcomes</strong>.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<p><span style="background-color:#FFF2CC"> Fortunately, this is guaranteed by randomization within each trial, no matter how many covariates we measured, </span> i.e., marginal randomization implies this weaker assumption.</p>
+</div>
+</div>
+</section>
+<section id="assumptions-of-method-3-1" class="slide level2">
+<h2>Assumptions of Method 3</h2>
+<div style="font-size: 85%;">
+<p><strong>Assumption M3.4: Transportability (Conditional exchangeability over inclusion)</strong>: <span class="math display">\[Y(a),Y(b)\perp\!\!\perp S\mid L\]</span></p>
+<p>What we learn about a treatment in one trial can be applied to patients in the other trial, given measured covariates.</p>
+<p><em>Information from patients on 6BPaLM in TB-PRACTECAL can tell us what would happen if endTB patients took 6BPaLM, and vice versa.</em></p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;">
+<p>Any systematic differences between trials that are not captured in the measured covariates <span class="math inline">\(L\)</span> will break this assumption.</p>
+</div>
+</div>
+</section>
+<section id="assumptions-of-method-3-2" class="slide level2">
+<h2>Assumptions of Method 3</h2>
+<div style="font-size: 85%;">
+<p><strong>Assumption M3.5: Positivity — Treatment assignment</strong></p>
+<p>Within each trial, everyone must have a non-zero probability to receive each treatment.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Assumption M3.6: Positivity — Trial participation/inclusion</strong></p>
+<p>Across trials, everyone must have a non-zero probability to be in either trial.</p>
+<p>No group of patients should exist only in one trial and never the other.</p>
+<p>If a certain kind of patient (say very sick patients) can only ever appear in trial 1 and never in trial 2, then we cannot use trial 2 to learn about that type of patient.</p>
+</div>
+</div>
+</section>
+<section id="method-3-identification-assumptions-summary" class="slide level2">
+<h2>Method 3: Identification Assumptions (summary)</h2>
+<div style="font-size: 85%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 95%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>M3.1</strong></td>
+<td><strong>Consistency</strong></td>
+</tr>
+<tr class="even">
+<td><strong>M3.2</strong></td>
+<td><strong>No trial engagement effects</strong>: <span class="math inline">\(Y(s,z)=Y(z)\)</span> for all <span class="math inline">\(z\in{a,b}\)</span> and <span class="math inline">\(s\in{1,2}\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>M3.3</strong></td>
+<td><strong>Conditional exchangeability within each trial</strong>: <span class="math inline">\(Y(a)\perp\!\!\perp A\mid L, S=1\)</span> and <span class="math inline">\(Y(b)\perp\!\!\perp A\mid L, S=2\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>M3.4</strong></td>
+<td><strong>Positivity of treatment assignment within each trial</strong>: <span class="math inline">\(\mathbb{P}(A=z_1\mid L,S=1)&gt;0\)</span> for <span class="math inline">\(z_1\in{a,c_1}\)</span>; <span class="math inline">\(\mathbb{P}(A=z_2\mid L,S=2)&gt;0\)</span> for <span class="math inline">\(z_2\in{b,c_2}\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>M3.5</strong></td>
+<td><strong>Transportability</strong>: <span class="math inline">\(Y(a),Y(b)\perp\!\!\perp S\mid L\)</span>, or weaker mean transportability conditions</td>
+</tr>
+<tr class="even">
+<td><strong>M3.6</strong></td>
+<td><strong>Positivity of trial inclusion</strong>: if <span class="math inline">\(f(L=l,S=s)\neq 0\)</span>, then <span class="math inline">\(\mathbb{P}(S=3-s\mid L=l)&gt;0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="identification-result-statistical-estimand" class="slide level2">
+<h2>Identification Result (Statistical Estimand)</h2>
+<div style="font-size: 75%;">
+<p>Identification of the target casual parameter of interest <span class="math inline">\(\psi:=\mathbb{E}[Y(a) - Y(b) \mid \Omega],\)</span> <span class="math display">\[\begin{align}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&amp;\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &amp;\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)} \nonumber \\ &amp;\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)},
+\end{align}\]</span> or equivalently, <span class="math inline">\(\psi\)</span> can be identified as the following IPW form <span class="math display">\[\begin{align}\label{psiid2}
+\psi(a, b)
+&amp;=
+\mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right]
++ \mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y\, \delta(L)}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right] \nonumber \\
+&amp;\quad - \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y\, \delta^{-1}(L)}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right]- \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right],
+\end{align}\]</span> where <span class="math inline">\(\delta(L):=
+\frac{\mathbb{P}_{\Omega}(S = 2 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)} = \frac{1 - \mathbb{P}_{\Omega}(S = 1 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)}.\)</span></p>
+</div>
+</section>
+<section id="identification-result-statistical-estimand-1" class="slide level2">
+<h2>Identification Result (Statistical Estimand)</h2>
+<div style="font-size: 75%;">
+<p><span class="math display">\[\begin{align}\label{psiid}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&amp;\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &amp;\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)} \nonumber \\ &amp;\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \color{#6b72ff}{\mathbb{P}_{\Omega}(S=2)},
+\end{align}\]</span> where <span class="math inline">\(\color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}\)</span> is the marginal probability of being selected into trial 1 within the target population.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p>Let’s focus on the first two terms, and the last two terms follow the same pattern. <span class="math display">\[\begin{align}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&amp;\ \ \ \ - \color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &amp;\ \ \ \ + \dots \nonumber \\ &amp;\ \ \ \ - \dots,
+\end{align}\]</span></p>
+</div>
+</div>
+</section>
+<section id="g-computation" class="slide level2">
+<h2>G-computation</h2>
+<div style="font-size: 75%;">
+<p>The first term is the standard G-computation result of the trial 1,</p>
+<p><span class="math display">\[\begin{align}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)} \\&amp;\ \ \ \ - \dots  \\ &amp;\ \ \ \ + \dots \nonumber \\ &amp;\ \ \ \ - \dots,
+\end{align}\]</span> where subgroup-specific conditional means, i.e., <span class="math inline">\(\color{#6b72ff}{\mathbb{E}(Y \mid A = a, L, S =1)}\)</span>, are used to estimate the treatment effect for patients in trial 1.</p>
+</div>
+</section>
+<section id="g-computation-1" class="slide level2">
+<h2>G-computation</h2>
+<div style="font-size: 75%;">
+<p><span class="math inline">\(\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ \mathbb{E}(Y \mid A = a, L, S =1)]\)</span> is</p>
+<p><span class="math display">\[\begin{align}
+{\color{#6b72ff}{\sum_{l: \mathbb{P}(l, S=1) \neq 0 }\mathbb{E}(Y \mid A = a, L = l, S =1)} * \mathbb{P}(L = l \mid S=1)}.
+\end{align}\]</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<ul>
+<li><p>Fit a model using <span class="math inline">\({\color{#6b72ff}{\textbf{Trial 1}}}\)</span> data to predict the outcome <span class="math inline">\(Y\)</span> given treatment <span class="math inline">\(A=a\)</span> and covariates <span class="math inline">\(L\)</span>.</p></li>
+<li><p>Apply that same model to each patient in <span class="math inline">\({\color{#6b72ff}{\textbf{Trial 1}}}\)</span> to get their predicted outcome under treatment <span class="math inline">\({\color{#6b72ff}{a}}\)</span>.</p></li>
+<li><p>Average those predictions across all <span class="math inline">\({\color{#6b72ff}{\textbf{Trial 1}}}\)</span> patients.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="g-computation-2" class="slide level2">
+<h2>G-computation</h2>
+<div style="font-size: 75%;">
+<p>The second term uses the <strong>transportability</strong> of the trial 2 for the trial 1,</p>
+<p><span class="math display">\[\begin{align}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \dots \\&amp;\ \ \ \ - \color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}] \color{#E69F00}{\mathbb{P}_{\Omega}(S=1)}  \\ &amp;\ \ \ \ + \dots \nonumber \\ &amp;\ \ \ \ - \dots,
+\end{align}\]</span> where subgroup-specific conditional means, i.e., <span class="math inline">\(\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}\)</span>, are fitted/estimated using data from trial 2.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<p><span class="math inline">\(\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}]\)</span> is a sum over <span class="math inline">\(l\)</span> (in <span class="math inline">\(S=1\)</span>) of</p>
+<p><span class="math display">\[\begin{align}
+\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L = l, S =2)} * \color{#6b72ff}{\mathbb{P}(L = l \mid S=1)}.
+\end{align}\]</span></p>
+</div>
+</div>
+</section>
+<section id="g-computation-3" class="slide level2">
+<h2>G-computation</h2>
+<div style="font-size: 75%;">
+<p><span class="math inline">\(\color{#6b72ff}{\mathbb{E}_{L\mid S=1}}[ {\color{#FF6B6B}{\mathbb{E}(Y \mid A = b, L, S =2)}}]\)</span> is</p>
+<p><span class="math display">\[\begin{align}
+\color{#6b72ff}{\sum_{l: \mathbb{P}(l, S=1) \neq 0 } } \color{#FF6B6B}{ \mathbb{E}(Y \mid A = b, L = l, S =2)} * \color{#6b72ff}{\mathbb{P}(L = l \mid S=1)}.
+\end{align}\]</span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<ul>
+<li><p>Using <span class="math inline">\({\color{#FF6B6B}{\textbf{Trial 2}}}\)</span> data, fit an outcome model for <span class="math inline">\(Y\)</span> given treatment <span class="math inline">\(A=b\)</span> and covariates <span class="math inline">\(L\)</span>.</p></li>
+<li><p>Apply that same model to each patient in <span class="math inline">\({\color{#6b72ff}{\textbf{Trial 1}}}\)</span> to get their predicted outcome under treatment <span class="math inline">\({\color{#FF6B6B}{b}}\)</span>.</p></li>
+<li><p>Average those predictions across all <span class="math inline">\({\color{#6b72ff}{\textbf{Trial 1}}}\)</span> patients.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="estimation" class="slide level2">
+<h2>Estimation</h2>
+<div style="font-size: 75%;">
+<p>We implement the Direct Method using three estimation method (1) <strong>g-computation</strong> (2) <strong>IPW</strong> and (3) <strong>one-step/doubly-robust estimation</strong>, where the one-step estimator is <span class="math display">\[\begin{align}
+\hat{\psi}_{\text{1step}}(a, b) = \mathbb{P}_{\Omega, n}\{\varphi[\hat{\mu}_s(z, L), \hat{\pi}_s(z, L), \hat{g}(L)]\},
+\end{align}\]</span> <span class="math display">\[\begin{align*}
+    \varphi({\hat{\mu}}_s, \hat{\pi}_{s}, \hat{g}):
+        &amp; = \frac{\mathbb{I}(A = a, S = 1) }{\hat{\pi}_{1}(a, L)}\left[Y - \hat{\mu}_1(a,  L) \right] + \mathbb{I}(S=1)\hat{\mu}_1(a, L) \\
+        &amp;\ \ \ \ \ - \left[ \frac{\mathbb{I}(A = b, S = 2)}{\hat{\pi}_2(b, L)}\left[Y - \hat{\mu}_2(b,  L) \right] + \mathbb{I}(S=2)\hat{\mu}_2(b, L)  \right]
+        \\
+        &amp;\ \ + \frac{\mathbb{I}(A = a, S = 1) [1 - \hat{g}(L)] }{\hat{\pi}_1(a, L)\hat{g}(L)}\left[Y - \hat{\mu}_1(a,  L) \right]  + \mathbb{I}(S=2)\hat{\mu}_1(a, L)
+       \\
+        &amp;\ \ \ \ \  - \left[\frac{\mathbb{I}(A = b, S = 2) \hat{g}(L) }{\hat{\pi}_2(b, L) [1 - \hat{g}(L)] }\left[Y - \hat{\mu}_2(b,  L) \right] + \mathbb{I}(S=1)\hat{\mu}_2(b, L) \right],
+\end{align*}\]</span> <span class="math inline">\(\hat{g}(L):=\hat{\mathbb{P}}_{\Omega}(S = 1 \mid L),\)</span> and <span class="math inline">\(\hat{\delta}(L) = \frac{1 - \hat{g}(L)}{\hat{g}(L)}\)</span>.</p>
+</div>
+</section>
+<section id="estimation-1" class="slide level2">
+<h2>Estimation</h2>
+<div style="font-size: 75%;">
+<p>Statistical properities of one-step estimator, such as consistency and asymptotic normality, are established under <span style="background-color:#FFF2CC"> standard regularity conditions.<span></span></span></p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;">
+<p>Theroem (informal) The one-step estimator <span class="math inline">\(\hat{\psi}_{\text{1step}}(a,b)\)</span> satisfies: (1) Consistency. <span class="math inline">\(\hat{\psi}_{\text{1step}}(a,b) \xrightarrow{\mathbb{P}_{\Omega}} \psi(a, b).\)</span> (2) Asymptotic linearity and normality: <span class="math display">\[ \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
+        = \G_n\!\left(\varphi\big[\mu_s(z, L),\pi_s(z, L),g(L)\big]\right)
+        + \mathcal{R} + o_{\mathbb{P}_{\Omega}}(1),\]</span> where <span class="math inline">\(\G_n\)</span> denotes the empirical process, and the remainder term satisfies <span class="math display">\[        \mathcal{R}
+        \leq \sqrt{n}\,O_{\mathbb{P}_{\Omega}}\Big(
+(\Delta\pi_1 + \Delta g)\,\Delta\mu_1
++ (\Delta\pi_2 + \Delta g)\,\Delta\mu_2
+\Big),\]</span> with the <span class="math inline">\(L^2(\mathbb{P}_{\Omega})\)</span> errors defined by <span class="math display">\[\Delta\pi_s := \|\pi_s - \hat{\pi}_s \|_2,\quad \Delta\mu_s := \|\mu_s - \hat{\mu}_s\|_2,\quad \Delta g := \|g - \hat{g}\|_2.\]</span></p>
+</div>
+</div>
+</section>
+<section id="estimation-2" class="slide level2">
+<h2>Estimation</h2>
+<div style="font-size: 75%;">
+<p>We focus on a <strong>causal machine learning estimator</strong> in the main analysis.</p>
+<ul>
+<li>Can flexibly incorporate modern machine learning methods for nuisance estimation.</li>
+<li>Provides <strong>valid</strong> large-sample inference under standard regularity conditions.</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;">
+<p>Rate Condition for Inference: each nuisance estimator converges in <span class="math inline">\(L^2(\mathbb{P}_{\Omega})\)</span> at a rate faster than <span class="math inline">\(n^{-1/4}\)</span>, <span class="math display">\[  \Delta g = o_{\mathbb{P}_{\Omega}}(n^{-1/4}),\quad
+  \Delta\pi_s = o_{\mathbb{P}_{\Omega}}(n^{-1/4}),\quad
+  \Delta\mu_s = o_{\mathbb{P}_{\Omega}}(n^{-1/4}).\]</span></p>
+<p>Then: <span class="math inline">\(\mathcal{R} = o_{\mathbb{P}_{\Omega}}(1),\)</span> and the one-step estimator is asymptotically linear <span class="math display">\[        \sqrt{n}\big(\hat{\psi}_{\text{1step}}(a, b)-\psi(a, b)\big)
+        = \G_n\big\{\varphi(O_i;\eta_0)\big\} + o_{\mathbb{P}_{\Omega}}(1)
+        \xrightarrow{d} \mathcal{N}\big(0,\ \mathbb{V}\{\varphi(O;\eta_0)\}\big),\]</span> where <span class="math inline">\(\eta_0 = (\mu_s,\pi_s,g)\)</span> denotes the collection of true nuisance functions.</p>
+</div>
+<!-- ## Summary: Direct Method
+
+::: {style="font-size: 75%;"}
+The Direct Method lets us “directly compare” treatments that were never tested head-to-head in the same trial, by combining trial data and applying advanced statistical adjustment.
+
+**For Our Research**: This is **a straightforward and robust approach** to answer whether 6BPaLM is preferable to 9-month regimens for people living with HIV, provided the trial populations are sufficiently similar.
+::: -->
+</div>
+</section>
+<section id="estimation-3" class="slide level2">
+<h2>Estimation</h2>
+<div style="font-size: 75%;">
+<p><strong>One-step estimation</strong>:</p>
+<p><strong>Doubly-Robust</strong>: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.</p>
+<ol type="1">
+<li><p><strong>Outcome Model</strong>: Predicts what the outcome would be under each treatment, given patient characteristics, <span class="math inline">\(\mu_s(z, L) = \E(Y\mid L,A=z,S=s)\)</span> for any <span class="math inline">\((s, z) \in \{(1, a), (2, b)\}.\)</span></p></li>
+<li><p><strong>Inclusion and Treatment Model</strong>: The trial inclusion (i.e., <span class="math inline">\(g(L) := \mathbb{P}_{\Omega}(S=1\mid L)\)</span>) and treatment mechanism (i.e., <span class="math inline">\(\mathbb{P}_{\Omega}(A=z\mid L,S=s)\)</span>) are consistently estimated.</p></li>
+</ol>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;">
+<p>Randomized trials simplify nuisance estimation: treatment mechanism is known. Only <span style="background-color:#FFF2CC">inclusion model <span class="math inline">\(g(L)\)</span> and outcome model <span class="math inline">\(\mu_s(a,L)\)</span></span> need to be estimated well.</p>
+</div>
+</div>
+</section>
+<section id="method-4-indirect-method-decomposition-for-adjusting-differing-standard-care" class="slide level2">
+<h2>Method (4): Indirect Method – decomposition for adjusting differing standard care</h2>
+<div style="font-size: 75%;">
+<p>Instead of directly comparing 6BPaLM vs.&nbsp;9-month regimens, we can decompose the total difference into two components: (1) the difference in treatment effects, and (2) the difference in standard care arms across trials.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;">
+<p>Total difference = (Treatment effect difference) + (Standard care difference), i.e., <span class="math display">\[\psi(a, b):= \mathbb{E}[Y(a)-Y(b)\mid\Omega] = \theta + \phi \]</span> where <span class="math inline">\(\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]\)</span>, difference in treatment effects, and <span class="math inline">\(\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],\)</span> the difference between the two standard care arms.</p>
+</div>
+</div>
+</section>
+<section id="the-two-components-a-closer-look" class="slide level2">
+<h2>The Two Components: A Closer Look</h2>
+<div style="font-size: 75%;">
+<ul>
+<li><strong>Component 1: Treatment Effect Difference (<span class="math inline">\(\theta\)</span>)</strong>
+<ul>
+<li>Captures how much better each investigational regimen is compared to its own control, i.e., <span class="math inline">\(\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]\)</span></li>
+</ul></li>
+<li><span class="math inline">\((\text{Effect of 6BPaLM vs. SC1}) - (\text{Effect of 9-month regimen vs. SC2})\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 75%;">
+<ul>
+<li><strong>Component 2: Standard Care Difference (<span class="math inline">\(\phi\)</span>)</strong>
+<ul>
+<li>Direct comparison: Standard Care 1 vs.&nbsp;Standard Care 2, capturing differences in background treatment across trials</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 75%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;">
+<p>We can estimate <span class="math inline">\(\phi\)</span> using the <strong>Direct Method</strong> from before, since <span class="math display">\[\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]\]</span> coincides with the pairwise contrast <span class="math inline">\(\phi = \psi(c_1, c_2)\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="identification-assumptions-for-theta-and-phi" class="slide level2">
+<h2>Identification Assumptions (for <span class="math inline">\(\theta\)</span> and <span class="math inline">\(\phi\)</span>)</h2>
+<div style="font-size: 75%;">
+<ul>
+<li><p><strong>(A4.1) Consistency</strong><br>
+</p></li>
+<li><p><strong>(A4.2) No trial engagement effects:</strong> for every treatment <span class="math inline">\(z\)</span> and every trial <span class="math inline">\(s\)</span>, <span class="math inline">\(Y(s, z) = Y(z)\)</span>.</p></li>
+<li><p><strong>(A4.3) Exchangeability within each trial</strong></p>
+<ul>
+<li>Trial 1: <span class="math inline">\(Y(a), Y(c_1)\perp\!\!\perp A \mid L,S=1\)</span><br>
+</li>
+<li>Trial 2: <span class="math inline">\(Y(b), Y(c_2)\perp\!\!\perp A \mid L,S=2\)</span></li>
+</ul></li>
+<li><p><strong>(A4.4) Positivity of treatment within trial</strong></p></li>
+<li><p><strong>(A4.5) Transportability</strong> :</p>
+<ul>
+<li>for <span class="math inline">\(\phi,\)</span> <span class="math inline">\(Y(c_1),Y(c_2)\perp\!\!\perp S\mid V\)</span>; where <span class="math inline">\(V=\text{country};\)</span> (standard-of-care is typically defined at the national level, often guided by WHO, and implemented through country-specific clinical guidelines.)</li>
+<li>for <span class="math inline">\(\theta,\)</span> <span class="math inline">\(Y(a),Y(b)\perp\!\!\perp S\mid L\)</span></li>
+</ul></li>
+<li><p><strong>(A4.6) Positivity of trial inclusion</strong></p>
+<ul>
+<li>For any covariate profile <span class="math inline">\(L\)</span>, a subject must have a non-zeor probability to be in both trials.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="comparison-of-methods" class="slide level2">
+<h2>Comparison of Methods</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="figs/comparison2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="figs/comparison2.png" class="quarto-figure quarto-figure-center" style="width:87.0%"></a></p>
+</figure>
+</div>
+</section>
+<section id="references" class="slide level2 smaller scrollable" data-footer="false">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" style="font-size: 80%;" role="list">
+<div id="ref-dahabreh2019extending" class="csl-entry" role="listitem">
+Dahabreh, I. J. and Hernán, M. A. (2019) Extending inferences from a randomized trial to a target population. <em>European journal of epidemiology</em>, <strong>34</strong>, 719–722. Springer.
+</div>
+<div id="ref-dahabreh_toward_2020" class="csl-entry" role="listitem">
+Dahabreh, I. J., Petito, L. C., Robertson, S. E., et al. (2020) Toward <span>Causally</span> <span>Interpretable</span> <span>Meta</span>-analysis: <span>Transporting</span> <span>Inferences</span> from <span>Multiple</span> <span>Randomized</span> <span>Trials</span> to a <span>New</span> <span>Target</span> <span>Population</span>. <em>Epidemiology</em>, <strong>31</strong>, 334–344. DOI: <a href="https://doi.org/10.1097/EDE.0000000000001177">10.1097/EDE.0000000000001177</a>.
+</div>
+<div id="ref-guglielmetti_oral_2025" class="csl-entry" role="listitem">
+Guglielmetti, L., Khan, U., Velásquez, G. E., et al. (2025) Oral <span>Regimens</span> for <span>Rifampin</span>-<span>Resistant</span>, <span>Fluoroquinolone</span>-<span>Susceptible</span> <span>Tuberculosis</span>. <em>New England Journal of Medicine</em>, <strong>392</strong>, 468–482. DOI: <a href="https://doi.org/10.1056/NEJMoa2400327">10.1056/NEJMoa2400327</a>.
+</div>
+<div id="ref-hernan2016" class="csl-entry" role="listitem">
+Hernán, M. A. (2016) Discussion of <span>“Perils</span> and potentials of self-selected entry to epidemiological studies and surveys” by <span>N</span> <span>K</span>eiding and <span>TA</span> <span>L</span>ouis. <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em>, <strong>179</strong>, 346–347. DOI: <a href="https://doi.org/10.1111/rssa.12127">10.1111/rssa.12127</a>.
+</div>
+<div id="ref-nyangwa_24-week_2022" class="csl-entry" role="listitem">
+Nyang’wa, B.-T., Berry, C., Kazounis, E., et al. (2022) A 24-<span>Week</span>, <span>All</span>-<span>Oral</span> <span>Regimen</span> for <span>Rifampin</span>-<span>Resistant</span> <span>Tuberculosis</span>. <em>New England Journal of Medicine</em>, <strong>387</strong>, 2331–2343. DOI: <a href="https://doi.org/10.1056/NEJMoa2117166">10.1056/NEJMoa2117166</a>.
+</div>
+<div id="ref-nyangwa_short_2024" class="csl-entry" role="listitem">
+Nyang’wa, B.-T., Berry, C., Kazounis, E., et al. (2024) Short oral regimens for pulmonary rifampicin-resistant tuberculosis (<span>TB</span>-<span>PRACTECAL</span>): An open-label, randomised, controlled, phase <span>2B</span>-3, multi-arm, multicentre, non-inferiority trial. <em>The Lancet Respiratory Medicine</em>, <strong>12</strong>, 117–128. DOI: <a href="https://doi.org/10.1016/S2213-2600(23)00389-2">10.1016/S2213-2600(23)00389-2</a>.
+</div>
+</div>
+</section>
+<section>
+<section id="appendix" class="title-slide slide level1 appendix center">
+<h1>Appendix</h1>
+
+</section>
+<section id="targeting-psi-conditions" class="slide level2">
+<h2>Targeting <span class="math inline">\(\psi\)</span> Conditions*</h2>
+<div style="font-size: 75%;">
+<ul>
+<li><p><strong>1 (Traditional):</strong> requires a common control and equal contrasts across trials</p></li>
+<li><p><strong>2 (Trial Emulation):</strong> requires equality of treatment effect in <span class="math inline">\(\Omega_{trt}\)</span> and <span class="math inline">\(\Omega_{untrt}\)</span></p></li>
+<li><p><strong>3 (Direct):</strong> requires transportability of treatment effects given <span class="math inline">\(L\)</span></p></li>
+<li><p><strong>4 (Indirect):</strong> requires transportability of (1) standard care effects (e.g., given country <span class="math inline">\(V\)</span>), and (2) treatment-control contrasts (given <span class="math inline">\(L\)</span>)</p></li>
+</ul>
+</div>
+</section>
+<section id="target-trial-emulation" class="slide level2 appendix">
+<h2>Target Trial Emulation</h2>
+<h3 id="design-eligibility-and-treatment">Design, Eligibility, and Treatment</h3>
+<p>Criteria for emulating a target trial using endTB and TB-PRACTECAL RCTs.</p>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Target Trial (Ideal)</th>
+<th>Emulated Trial (Real)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Eligibility (baseline)</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Inclusion</td>
+<td>Age ≥ 15; rifampin-resistant; fluoroquinolone-susceptible; baseline labs grade ≤ 4; HIV seropositive</td>
+<td>Same</td>
+</tr>
+<tr class="odd">
+<td>Exclusion</td>
+<td>Pregnancy; elevated liver enzymes; QTcF ≥ 450 msec; uncorrectable electrolyte disorders; on MDR/RR-TB treatment ≥ 2 weeks; investigator discretion</td>
+<td>Same</td>
+</tr>
+<tr class="even">
+<td><strong>Treatment strategies</strong></td>
+<td>6BPaLM; 9BLMZ; 9BCLLfxZ; 9BDLLfxZ</td>
+<td>Same</td>
+</tr>
+<tr class="odd">
+<td><strong>Assignment</strong></td>
+<td>Randomized (1:1:1:1), stratified by country/region</td>
+<td>IPTW using key baseline covariates</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="target-trial-emulation-cts" class="slide level2 appendix">
+<h2>Target Trial Emulation (cts)</h2>
+<h3 id="follow-up-estimands-and-analysis">Follow-up, Estimands, and Analysis</h3>
+<p><strong>Table 1b.</strong> Follow-up, outcomes, and causal contrasts for the emulated trial.</p>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Target Trial (Ideal)</th>
+<th>Emulated Trial (Real)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Time zero &amp; follow-up</strong></td>
+<td>Time zero: first dose initiation; follow-up ends at primary endpoint, censoring, or administrative study end</td>
+<td>Same, with 1-week grace period (72/73 weeks)</td>
+</tr>
+<tr class="even">
+<td><strong>Outcome</strong></td>
+<td>WHO composite outcome</td>
+<td>Same</td>
+</tr>
+<tr class="odd">
+<td><strong>Causal contrasts</strong></td>
+<td>ITT: 6BPaLM vs 9BLMZ; 6BPaLM vs 9BCLLfxZ; 6BPaLM vs 9BDLLfxZ</td>
+<td>Same, constructed as a single four-arm study in mITT population</td>
+</tr>
+<tr class="even">
+<td><strong>Statistical analysis</strong></td>
+<td>ITT analysis</td>
+<td>ITT with IPCW for censoring adjustment</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="comparison-of-methods-1" class="slide level2 appendix">
+<h2>Comparison of Methods</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="figs/comparison.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="figs/comparison.png" class="quarto-figure quarto-figure-center" style="width:77.0%"></a></p>
+</figure>
+</div>
+</section>
+<section id="overview-of-source-trials-tb-practecal-vs.-endtb" class="slide level2 appendix">
+<h2>Overview of source trials: TB-PRACTECAL vs.&nbsp;endTB</h2>
+<div style="font-size: 85%;">
+<p><strong>TB-PRACTECAL</strong> (Nyang’wa et al., 2022, 2024):</p>
+<ul>
+<li><strong>Design</strong>: Phase 2/3 non-inferiority RCT</li>
+<li><strong>Countries</strong>: South Africa, Belarus, Uzbekistan</li>
+<li><strong>Regimens tested</strong>: 6-month all-oral regimens vs.&nbsp;standard care</li>
+<li><strong>Key finding</strong>: 6BPaLM non-inferior to standard care</li>
+<li><strong>Primary endpoint</strong>: Composite unfavorable outcome at 72 weeks</li>
+</ul>
+<p><strong>endTB</strong> (Guglielmetti et al., 2025):</p>
+<ul>
+<li><strong>Design</strong>: Phase 3 non-inferiority RCT</li>
+<li><strong>Countries</strong>: Georgia, India, Kazakhstan, Lesotho, Pakistan, Peru, South Africa</li>
+<li><strong>Regimens tested</strong>: 9-month all-oral regimens vs.&nbsp;standard care</li>
+<li><strong>Key finding</strong>: 9BLMZ, 9BCLLfxZ, 9BDLLfxZ non-inferior to standard care</li>
+<li><strong>Primary endpoint</strong>: Favorable outcome at 73 weeks</li>
+</ul>
+</div>
+</section>
+<section id="key-differences-between-trials" class="slide level2 appendix">
+<h2>Key differences between trials</h2>
+<div style="font-size: 85%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 45%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>TB-PRACTECAL</th>
+<th>endTB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Duration</strong></td>
+<td>6-month regimens</td>
+<td>9-month regimens</td>
+</tr>
+<tr class="even">
+<td><strong>Standard care</strong></td>
+<td>9–12 or 18–20 month all-oral regimens (region-specific)</td>
+<td>18–20 month all-oral regimens (region-specific)</td>
+</tr>
+<tr class="odd">
+<td><strong>Study regions</strong></td>
+<td>Eastern Europe, Central Asia, Southern Africa</td>
+<td>South Asia, Latin America, Eastern Europe, Africa</td>
+</tr>
+<tr class="even">
+<td><strong>Primary outcome</strong></td>
+<td>Composite unfavorable outcome</td>
+<td>Favorable outcome</td>
+</tr>
+<tr class="odd">
+<td><strong>Assessment time</strong></td>
+<td>72 weeks</td>
+<td>73 weeks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Critical implication</strong>:</p>
+<ul>
+<li>Standard care differs <strong>both across regions and over time</strong></li>
+<li>Direct comparison is <strong>not straightforward</strong> due to differing controls</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="challenges-for-cross-trial-data-fusion" class="slide level2 appendix">
+<h2>Challenges for cross-trial data fusion</h2>
+<div style="font-size: 85%;">
+<p><strong>1. No head-to-head comparison</strong> - Trials compared regimens to <strong>different standard-of-care arms</strong> - No common treatment arm between trials</p>
+<p><strong>2. Heterogeneity in standard care</strong> - Standard care varied by country and enrollment period - Changes in WHO guidelines during trial periods</p>
+<p><strong>3. Regional and population differences</strong> - Limited overlap in study regions - Different background epidemiology, healthcare systems</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;">
+<p><strong>We need causal data fusion methods</strong> that can:</p>
+<ul>
+<li>Combine IPD from both trials</li>
+<li>Account for differing standard care</li>
+<li>Estimate direct contrasts between investigational regimens</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="identification-result-statistical-estimand-2" class="slide level2 appendix">
+<h2>Identification Result (Statistical Estimand)</h2>
+<div style="font-size: 85%;">
+<p>Identification of the parameter of interest <span class="math inline">\(\psi\)</span></p>
+<p><span class="math display">\[\begin{align}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+    &amp;= \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=1) \\ &amp;\ \ \ \ + \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = a, L, S =1)] \mathbb{P}_{\Omega}(S=2) \nonumber \\ &amp;\ \ \ \ - \mathbb{E}_{L\mid S=1}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=1)  \\ &amp;\ \ \ \ - \mathbb{E}_{L\mid S=2}[\mathbb{E}(Y \mid A = b, L, S =2)] \mathbb{P}_{\Omega}(S=2),
+\end{align}\]</span> where <span class="math inline">\(S=1\)</span> indicates TB-PRACTECAL and <span class="math inline">\(S=2\)</span> indicates endTB.</p>
+<p>or equivalently, <span class="math inline">\(\psi\)</span> can be identified as the following IPW form <span class="math display">\[\begin{align}\label{psiid2}
+\psi(a, b) &amp;:=  \mathbb{E}[Y(a) - Y(b) \mid \Omega] \nonumber \\
+&amp;=
+\mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right]
++ \mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y\, \delta(L)}{\mathbb{P}_{\Omega}(A=a \mid L, S=1)}\right] \nonumber \\
+&amp;\quad - \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y\, \delta^{-1}(L)}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right]- \mathbb{E}\!\left[\frac{\mathbb{I}(A=b)\mathbb{I}(S=2)Y}{\mathbb{P}_{\Omega}(A=b \mid L, S=2)}\right],
+\end{align}\]</span> where <span class="math inline">\(\delta(L):=
+\frac{\mathbb{P}_{\Omega}(S = 2 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)} = \frac{1 - \mathbb{P}_{\Omega}(S = 1 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)}.\)</span></p>
+</div>
+</section>
+<section id="estimation-4" class="slide level2 appendix">
+<h2>Estimation</h2>
+<div style="font-size: 85%;">
+<p>We implement the Direct Method using three estimation method (1) <strong>g-computation</strong> (2) <strong>IPW</strong> and (3) <strong>one-step/doubly-robust estimation</strong>:</p>
+<p><strong>Doubly-Robust</strong>: The one-step estimator is consistent if either the outcome model or the inclusion and treatment model is correctly specified.</p>
+<ol type="1">
+<li><p><strong>Outcome Model</strong>: Predicts what the outcome would be under each treatment, given patient characteristics, <span class="math inline">\(\mu_s(z, L) = \E(Y\mid L,A=z,S=s)\)</span> for any <span class="math inline">\((s, z) \in \{(1, a), (2, b)\}.\)</span></p></li>
+<li><p><strong>Inclusion and Treatment Model</strong>: The trial inclusion (i.e., <span class="math inline">\(g(L) := \mathbb{P}_{\Omega}(S=1\mid L)\)</span>) and treatment mechanism (i.e., <span class="math inline">\(\mathbb{P}_{\Omega}(A=z\mid L,S=s)\)</span>) are consistently estimated.</p></li>
+</ol>
+<p>Statistical properities of one-step estimator, such as consistency and asymptotic normality, are established under standard regularity conditions.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;">
+<p>Treatment mechanism are known in randomized trials, so only the <span style="background-color:#FFF2CC">inclusion model and outcome model </span> need to be estimated “well”, and the doubly-robust property ensures consistency if either is correct.</p>
+</div>
+</div>
+</section>
+<section id="identification-of-theta" class="slide level2 appendix">
+<h2>Identification of <span class="math inline">\(\theta\)</span></h2>
+<p>Decomposing <span class="math inline">\(\theta := \underbrace{\mathbb{E}[Y(a) - Y(c_1) \mid \Omega]}_{\theta_1} - \underbrace{\mathbb{E}[Y(b) - Y(c_2) \mid \Omega]}_{\theta_2},\)</span> we have: for <span class="math inline">\(\theta_1\)</span> <span class="math display">\[\begin{align}\label{thetaid}
+\mathbb{E}_{L \mid S = 1}&amp; \left[ \mathbb{E}[Y \mid A = a, L, S = 1] - \mathbb{E}[Y \mid A = c_1, L, S = 1] \right] \mathbb{P}(S = 1)  \nonumber \\
++ \mathbb{E}_{L \mid S = 2} &amp;\left[ \mathbb{E}[Y \mid A = a, L, S = 1] - \mathbb{E}[Y \mid A = c_1, L, S = 1] \right] \mathbb{P}(S = 2)
+\end{align}\]</span></p>
+<p>or equivalently, <span class="math inline">\(\theta_1\)</span> can be identified as the following IPW form, <span class="math display">\[\begin{align*}
+&amp;\mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y}{\mathbb{P}(A=a \mid L, S=1)} - \frac{\mathbb{I}(A=c_1)\mathbb{I}(S=1)Y\, }{\mathbb{P}(A=c_1 \mid L, S=1)}\right] \\ +&amp; \mathbb{E}\!\left[\frac{\mathbb{I}(A=a)\mathbb{I}(S=1)Y\, \delta(L)}{\mathbb{P}(A=a \mid L, S=1)} - \frac{\mathbb{I}(A=c_1)\mathbb{I}(S=1)Y\delta(L)}{\mathbb{P}(A=c_1 \mid L, S=1)}\right]
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(\delta(L):=
+\frac{\mathbb{P}_{\Omega}(S = 2 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)} = \frac{1 - \mathbb{P}_{\Omega}(S = 1 \mid L)}{\mathbb{P}_{\Omega}(S = 1 \mid L)}.\)</span></p>
+<p><span style="background:#E6F7FF"> There are 4 terms in the above identification formulas, corresponding to 2 components across 2 trials. </span></p>
+</section>
+<section id="how-it-works-combining-the-pieces" class="slide level2 appendix">
+<h2>How It Works: Combining the Pieces</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Step 1: Estimate Standard Care Difference</strong>, <span class="math inline">\(\hat{\phi}\)</span>
+<ul>
+<li>Use the Direct Method to compare SC1 v.s. SC2</li>
+</ul></li>
+<li><strong>Step 2: Estimate Treatment Effect Difference,</strong> <span class="math inline">\(\hat{\theta}\)</span>
+<ul>
+<li>Estimate 6BPaLM effect v.s. SC1 in TB-PRACTECAL, and 9-month effect vs.&nbsp;SC2 in endTB</li>
+<li>Transport these effects to the combined population (4 terms in the identification formula)</li>
+</ul></li>
+<li><strong>Step 3: Add Them Up</strong> <span class="math inline">\(\hat{\psi}(a, b)\)</span> = <span class="math inline">\(\hat{\theta}\)</span> + <span class="math inline">\(\hat{\phi}\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;">
+<p><strong>In Estimation</strong>, we also proposed hree estimation method (1) <strong>g-computation</strong> (2) <strong>IPW</strong> and (3) <strong>one-step/doubly robust estimation</strong> to estimate both components and combine them for the final contrast. Statistical properities such as consistency and asymptotic normality are established under standard regularity conditions.</p>
+</div>
+</div>
+</section>
+<section id="strengths-weaknesses" class="slide level2 appendix">
+<h2>Strengths &amp; Weaknesses</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Strengths</strong>
+<ul>
+<li><strong>Explicitly handles different standard cares</strong> — a major advantage</li>
+<li><strong>Uses randomization where possible</strong> — more credible treatment effect estimates</li>
+<li><strong>Flexible assumptions</strong> — weaker assumptions for the standard care comparison</li>
+</ul></li>
+<li><strong>Challenges</strong>
+<ul>
+<li><strong>More complex</strong> — requires estimating two components (8 total key terms)</li>
+<li><strong>Multiple assumptions</strong> — each component has its own requirements</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;">
+<p>When standard care differs substantially between trials, this method <strong>explicitly accounts for that difference</strong>, making it potentially more accurate than the traditional approach.</p>
+</div>
+</div>
+</section>
+<section id="method-4-indirect-method-decomposition-for-adjusting-differing-standard-care-1" class="slide level2 appendix">
+<h2>Method (4): Indirect Method – decomposition for adjusting differing standard care</h2>
+<div style="font-size: 85%;">
+<p><strong>The Core Idea</strong>: Instead of directly comparing 6BPaLM vs.&nbsp;9-month regimens, we break the problem into <strong>two parts</strong>:</p>
+<ol type="1">
+<li><p><strong>The difference in treatment effects</strong><br>
+How much better is 6BPaLM vs.&nbsp;<em>its</em> standard care, compared to how much better a 9-month regimen is vs.&nbsp;<em>its</em> standard care?</p></li>
+<li><p><strong>The difference in standard care</strong><br>
+How different are the two standard care treatments themselves?</p></li>
+</ol>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #e6f7ff; padding: 10px; border-left: 5px solid #0077b6;">
+<p><strong>Simple formula</strong>:<br>
+Total difference = (Treatment effect difference) + (Standard care difference), i.e., <span class="math display">\[\psi(a, b)= \theta + \phi \]</span> where <span class="math inline">\(\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]\)</span>, difference in treatment effects, and <span class="math inline">\(\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega],\)</span> the difference between the two standard care arms.</p>
+</div>
+</div>
+</section>
+<section id="the-two-components-a-closer-look-1" class="slide level2">
+<h2>The Two Components: A Closer Look</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Component 1: Treatment Effect Difference (<span class="math inline">\(\theta\)</span>)</strong>
+<ul>
+<li>In <strong>TB-PRACTECAL</strong>: 6BPaLM v.s. Standard Care 1</li>
+<li>In <strong>endTB</strong>: 9-month regimen v.s. Standard Care 2</li>
+<li>Captures how much better each investigational regimen is compared to its own control, i.e., <span class="math inline">\(\theta := \mathbb{E}[Y(a)-Y(c_1)\mid\Omega] - \mathbb{E}[Y(b)-Y(c_2)\mid\Omega]\)</span></li>
+</ul></li>
+<li><span class="math inline">\((\text{Effect of 6BPaLM vs. SC1}) - (\text{Effect of 9-month regimen vs. SC2})\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<ul>
+<li><strong>Component 2: Standard Care Difference (<span class="math inline">\(\phi\)</span>)</strong>
+<ul>
+<li>Direct comparison: Standard Care 1 vs.&nbsp;Standard Care 2</li>
+<li>Captures differences in background treatment across trials</li>
+</ul></li>
+<li><span class="math inline">\(\phi := \mathbb{E}[Y(c_1)-Y(c_2)\mid\Omega]\)</span></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #fff0f0; padding: 10px; border-left: 5px solid #b22222;">
+<p><strong>Fact of Component 2</strong>:<br>
+We can estimate <span class="math inline">\(\phi\)</span> using the <strong>Direct Method</strong> from before, since <span class="math inline">\(\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]\)</span> coincides with the pairwise contrast <span class="math inline">\(\phi = \psi(c_1, c_2)\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="identification-assumptions-for-theta-and-phi-1" class="slide level2 appendix">
+<h2>Identification Assumptions (for <span class="math inline">\(\theta\)</span> and <span class="math inline">\(\phi\)</span>)</h2>
+<div style="font-size: 85%;">
+<ul>
+<li><p><strong>(A1) Consistency</strong></p></li>
+<li><p><strong>(A2) Exchangeability within each trial</strong></p>
+<ul>
+<li>Trial 1: <span class="math inline">\(Y(a), Y(c_1)\perp\!\!\perp A \mid L,S=1\)</span><br>
+</li>
+<li>Trial 2: <span class="math inline">\(Y(b), Y(c_2)\perp\!\!\perp A \mid L,S=2\)</span></li>
+</ul></li>
+<li><p><strong>(A3) Positivity of treatment within trial</strong></p>
+<p>Everyone in each trial has a non-zero probability to receive every treatment arm.</p></li>
+<li><p><strong>(A4) Transportability</strong> : <span class="math inline">\(Y(a),Y(c_1), Y(b), Y(c_2)\perp\!\!\perp S \mid L\)</span></p></li>
+<li><p><strong>(A5) Positivity of trial inclusion</strong></p>
+<p>For any covariate profile <span class="math inline">\(L\)</span>, a subject must have a non-zeor probability to be in both trials.</p></li>
+</ul>
+</div>
+</section>
+<section id="summary-indirect-method" class="slide level2 appendix">
+<h2>Summary: Indirect Method</h2>
+<div style="font-size: 85%;">
+<p>The Indirect Method breaks the comparison into “how much better the treatments are than their respective standard cares” plus “how different those standard cares are from each other.”</p>
+<p><strong>The Key Insight</strong>:<br>
+By separating treatment effects from background care differences, we get a clearer picture of what is really driving any observed differences between 6BPaLM and 9-month regimens.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%; background-color: #f0f8ff; padding: 10px; border-left: 5px solid #4682b4;">
+<p><strong>For Our Study</strong>:<br>
+This method is particularly valuable because TB-PRACTECAL and endTB had different standard care regimens, something we can’t ignore when comparing their results.</p>
+</div>
+</div>
+</section>
+<section id="comparison-of-four-data-fusion-methods" class="slide level2 appendix">
+<h2>Comparison of Four Data-Fusion Methods</h2>
+<div style="font-size: 85%;">
+<p><strong>Target Population</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>1 Traditional</th>
+<th>2 Trial Emulation</th>
+<th>3 Indirect</th>
+<th>4 Direct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Omega\)</span> (pooled)</td>
+<td><span class="math inline">\(\Omega\)</span> (pooled)</td>
+<td><span class="math inline">\(\Omega\)</span> (pooled)</td>
+<td><span class="math inline">\(\Omega\)</span> (pooled)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Causal Estimand</strong></p>
+<ul>
+<li><p><strong>(1) Traditional:</strong> contrast of trial-specific treatment effects.</p></li>
+<li><p><strong>(2) Trial Emulation:</strong> contrast in the treat-only population.</p></li>
+<li><p><strong>(3) Direct:</strong> <span class="math inline">\(\psi=\E[Y(a)-Y(b)\mid\Omega]\)</span></p></li>
+<li><p><strong>(4) Indirect:</strong> <span class="math inline">\(\psi=\theta+\phi\)</span></p>
+<ul>
+<li><span class="math inline">\(\phi\)</span>: difference between controls across trials</li>
+<li><span class="math inline">\(\theta\)</span>: difference-in-differences of treatment effects</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="comparison-of-four-data-fusion-methods-1" class="slide level2 appendix">
+<h2>Comparison of Four Data-Fusion Methods</h2>
+<div style="font-size: 85%;">
+<p><strong>Standard Assumptions</strong></p>
+<p>Common to all methods:</p>
+<ul>
+<li><strong>Consistency</strong></li>
+<li><strong>Positivity within each trial</strong></li>
+</ul>
+<p>What differs:</p>
+<ul>
+<li><strong>1, 3 &amp; 4:</strong> exchangeability holds <em>within each trial</em></li>
+<li><strong>2 (Trial Emulation):</strong> exchangeability in the treat-only population</li>
+</ul>
+</div>
+</section>
+<section id="comparison-of-four-data-fusion-methods-2" class="slide level2 appendix">
+<h2>Comparison of Four Data-Fusion Methods</h2>
+<div style="font-size: 85%;">
+<p><strong>Additional Targeting Conditions</strong></p>
+<ul>
+<li><p><strong>1 (Traditional):</strong> requires a common control and equal contrasts across trials</p></li>
+<li><p><strong>2 (Trial Emulation):</strong> requires equality of treatment effect in <span class="math inline">\(\Omega_{trt}\)</span> and <span class="math inline">\(\Omega\)</span></p></li>
+<li><p><strong>3 (Direct):</strong> requires transportability of treatment effects given <span class="math inline">\(L\)</span></p></li>
+<li><p><strong>4 (Indirect):</strong> requires transportability for</p>
+<ul>
+<li>controls (given country <span class="math inline">\(V\)</span>), and</li>
+<li>treatments (given <span class="math inline">\(L\)</span>)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Uses Randomization</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>✔ within-trial</td>
+<td>✖</td>
+<td>✔ within-trial</td>
+<td>✔ within-trial</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="comparison-of-four-data-fusion-methods-3" class="slide level2 appendix">
+<h2>Comparison of Four Data-Fusion Methods</h2>
+<div style="font-size: 85%;">
+<p><strong>Sample Size Usage</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How sample size is used</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1 Traditional</strong></td>
+<td>Uses <strong>fully pooled IPD from all arms</strong>, maximizing effective sample size.</td>
+</tr>
+<tr class="even">
+<td><strong>2 Trial Emulation</strong></td>
+<td>Uses <strong>all treated units</strong> across trials but may discard controls for the main contrast.</td>
+</tr>
+<tr class="odd">
+<td><strong>3 Indirect</strong></td>
+<td>Uses <strong>fully pooled IPD from all arms</strong>, maximizing effective sample size.</td>
+</tr>
+<tr class="even">
+<td><strong>4 Direct</strong></td>
+<td>Uses <strong>fully pooled IPD from all arms</strong>, maximizing effective sample size.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="summary-indirect-method-1" class="slide level2">
+<h2>Summary: Indirect Method</h2>
+<div style="font-size: 85%;">
+<p>The indirect method uses an identification strategy similar to the direct method, but must account for both <strong>treatment effect difference</strong> <span class="math inline">\(\theta\)</span> and <strong>standard care difference</strong> <span class="math inline">\(\phi\)</span>.</p>
+</div>
+<div class="fragment">
+<div style="font-size: 85%;">
+<p><strong>Fact of Component 2</strong>: we can indentify and estimate <span class="math inline">\(\phi\)</span> using the <strong>Direct Method</strong> from before, since <span class="math inline">\(\phi := \mathbb{E}\left[ Y(c_1) - Y(c_2) \mid \Omega \right]\)</span> coincides with the pairwise contrast <span class="math display">\[\phi = \psi(c_1, c_2).\]</span></p>
+</div>
+
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="figs/hsph.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>EHR/Missing data Working Group Meeting</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="deck_prjct_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="deck_prjct_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="deck_prjct_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="deck_prjct_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+    (function() {
+      let previousOnload = window.onload;
+      window.onload = () => {
+        if (previousOnload) {
+          previousOnload();
+        }
+        lightboxQuarto.on('slide_before_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          const href = trigger.getAttribute('href');
+          if (href !== null) {
+            const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+            if (imgEl !== null) {
+              const srcAttr = imgEl.getAttribute("src");
+              if (srcAttr && srcAttr.startsWith("data:")) {
+                slideConfig.href = srcAttr;
+              }
+            }
+          } 
+        });
+      
+        lightboxQuarto.on('slide_after_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(slideNode);
+          }
+        });
+      
+      };
+      
+    })();
+              </script>
+    
+
+</body></html>
