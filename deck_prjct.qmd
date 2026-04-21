@@ -1,5 +1,6 @@
 ---
 title: "Cross-Trial Causal Comparison of Treatment Regimens Without a Common Comparator: A Case Study of MDR/RR-TB"
+output-file: index.html
 format:
   clean-revealjs:
     self-contained: false
