@@ -3,7 +3,7 @@ title: "Cross-Trial Causal Comparison of Treatment Regimens Without a Common Com
 output-file: index.html
 format:
   clean-revealjs:
-    self-contained: false
+    self-contained: true
     slide-number: c
     preview-links: auto
     logo: figs/hsph.png
